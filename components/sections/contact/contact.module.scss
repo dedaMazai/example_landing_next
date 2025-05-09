@@ -1,0 +1,150 @@
+@import "styles/mixins.scss";
+
+.contact {
+  padding: $spacing-20 0;
+  background-color: white;
+  
+  .container {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-12;
+    
+    @include desktop {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+  }
+  
+  .content {
+    .subtitle {
+      @include body-small;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $primary-color;
+      font-weight: $font-weight-medium;
+      margin-bottom: $spacing-2;
+      display: flex;
+      align-items: center;
+      
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 40px;
+        height: 1px;
+        background-color: $primary-color;
+        margin-right: $spacing-3;
+      }
+    }
+    
+    .title {
+      @include heading-2;
+      color: $dark-color;
+      margin-bottom: $spacing-6;
+    }
+    
+    .description {
+      @include body-regular;
+      color: $text-secondary;
+      margin-bottom: $spacing-8;
+    }
+    
+    .infoItems {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-6;
+      
+      .infoItem {
+        display: flex;
+        align-items: flex-start;
+        
+        .iconWrapper {
+          width: 48px;
+          height: 48px;
+          border-radius: $border-radius-md;
+          background-color: rgba($primary-color, 0.1);
+          @include flex-center;
+          margin-right: $spacing-4;
+          flex-shrink: 0;
+          
+          svg {
+            color: $primary-color;
+          }
+        }
+        
+        .details {
+          .label {
+            @include body-small;
+            font-weight: $font-weight-medium;
+            color: $text-secondary;
+            margin-bottom: $spacing-1;
+          }
+          
+          .value {
+            @include body-regular;
+            color: $text-primary;
+            font-weight: $font-weight-medium;
+            
+            a {
+              color: $text-primary;
+              text-decoration: none;
+              transition: $transition-base;
+              
+              &:hover {
+                color: $primary-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .formWrapper {
+    @include card;
+    
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-6;
+      
+      .inputGroup {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-2;
+        
+        label {
+          @include body-small;
+          font-weight: $font-weight-medium;
+          color: $text-primary;
+        }
+        
+        input, textarea {
+          width: 100%;
+          padding: $spacing-3;
+          border: 1px solid $border-color;
+          border-radius: $border-radius-md;
+          background-color: white;
+          transition: $transition-base;
+          
+          &:focus {
+            outline: none;
+            border-color: $primary-color;
+            box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+          }
+        }
+        
+        textarea {
+          min-height: 120px;
+          resize: vertical;
+        }
+      }
+      
+      .submitButton {
+        @include button-primary;
+        padding: $spacing-3 $spacing-6;
+        align-self: flex-start;
+      }
+    }
+  }
+}

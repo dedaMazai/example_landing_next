@@ -1,0 +1,128 @@
+@import "styles/mixins.scss";
+
+.footer {
+  background-color: $dark-color;
+  color: $text-light;
+  padding: $spacing-16 0 $spacing-8;
+  
+  .container {
+    @include container;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-8;
+    margin-bottom: $spacing-12;
+    
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include desktop {
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+  }
+  
+  .companyInfo {
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: $spacing-2;
+      margin-bottom: $spacing-4;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-xl;
+      
+      svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+    
+    .description {
+      margin-bottom: $spacing-6;
+      color: $text-secondary;
+      max-width: 300px;
+    }
+    
+    .socialLinks {
+      display: flex;
+      gap: $spacing-4;
+      
+      a {
+        width: 40px;
+        height: 40px;
+        border-radius: $border-radius-full;
+        background-color: rgba(255, 255, 255, 0.1);
+        @include flex-center;
+        transition: $transition-base;
+        
+        &:hover {
+          background-color: $primary-color;
+        }
+      }
+    }
+  }
+  
+  .links {
+    h4 {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-medium;
+      margin-bottom: $spacing-4;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+      li {
+        margin-bottom: $spacing-3;
+        
+        a {
+          color: $text-secondary;
+          text-decoration: none;
+          transition: $transition-base;
+          
+          &:hover {
+            color: $text-light;
+          }
+        }
+      }
+    }
+  }
+  
+  .bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: $spacing-8;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+    
+    @include desktop {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .copyright {
+      color: $text-secondary;
+    }
+    
+    .legal {
+      display: flex;
+      gap: $spacing-4;
+      flex-wrap: wrap;
+      
+      a {
+        color: $text-secondary;
+        text-decoration: none;
+        transition: $transition-base;
+        
+        &:hover {
+          color: $text-light;
+        }
+      }
+    }
+  }
+}

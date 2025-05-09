@@ -1,0 +1,109 @@
+@import "styles/mixins.scss";
+
+.testimonials {
+  padding: $spacing-20 0;
+  background-color: $light-color;
+  
+  .container {
+    @include container;
+  }
+  
+  .heading {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto $spacing-16;
+    
+    .subtitle {
+      @include body-small;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $primary-color;
+      font-weight: $font-weight-medium;
+      margin-bottom: $spacing-2;
+    }
+    
+    .title {
+      @include heading-2;
+      color: $dark-color;
+      margin-bottom: $spacing-4;
+    }
+    
+    .description {
+      @include body-regular;
+      color: $text-secondary;
+    }
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-8;
+    
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include desktop {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .testimonialCard {
+    @include card;
+    position: relative;
+    
+    .quote {
+      position: absolute;
+      top: -15px;
+      left: 20px;
+      color: $primary-color;
+      opacity: 0.2;
+      font-size: 80px;
+      line-height: 1;
+    }
+    
+    .content {
+      position: relative;
+      z-index: 2;
+      
+      .text {
+        @include body-regular;
+        color: $text-primary;
+        margin-bottom: $spacing-6;
+        font-style: italic;
+      }
+      
+      .author {
+        display: flex;
+        align-items: center;
+        
+        .avatar {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          overflow: hidden;
+          margin-right: $spacing-3;
+          
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        
+        .info {
+          .name {
+            @include body-regular;
+            font-weight: $font-weight-medium;
+            color: $dark-color;
+          }
+          
+          .position {
+            @include body-small;
+            color: $text-secondary;
+          }
+        }
+      }
+    }
+  }
+}

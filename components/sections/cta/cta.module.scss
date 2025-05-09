@@ -1,0 +1,82 @@
+@import "styles/mixins.scss";
+
+.cta {
+  padding: $spacing-20 0;
+  background-color: $primary-color;
+  position: relative;
+  overflow: hidden;
+  
+  .container {
+    @include container;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    
+    .title {
+      @include heading-2;
+      color: white;
+      margin-bottom: $spacing-6;
+    }
+    
+    .description {
+      @include body-large;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: $spacing-8;
+    }
+    
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: $spacing-4;
+      
+      @include mobile {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    
+    .primaryButton {
+      @include button-accent;
+      padding: $spacing-3 $spacing-6;
+    }
+    
+    .secondaryButton {
+      background-color: transparent;
+      color: white;
+      border: 1px solid white;
+      border-radius: $border-radius-md;
+      padding: $spacing-3 $spacing-6;
+      font-weight: $font-weight-medium;
+      transition: $transition-base;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+  
+  .shape1 {
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+  
+  .shape2 {
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+}

@@ -1,0 +1,121 @@
+@import "styles/mixins.scss";
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-index-sticky;
+  transition: $transition-base;
+  
+  &.scrolled {
+    background-color: white;
+    box-shadow: $shadow-md;
+  }
+
+  .container {
+    @include container;
+    @include flex-between;
+    height: 80px;
+  }
+
+  .logo {
+    font-weight: $font-weight-bold;
+    font-size: $font-size-xl;
+    color: $primary-color;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .nav {
+    @include desktop {
+      display: flex;
+      align-items: center;
+    }
+    
+    @include mobile {
+      display: none;
+      
+      &.mobileOpen {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background-color: white;
+        padding: $spacing-4;
+        box-shadow: $shadow-md;
+      }
+    }
+  }
+
+  .navList {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    
+    @include desktop {
+      flex-direction: row;
+      gap: $spacing-6;
+    }
+    
+    @include mobile {
+      flex-direction: column;
+      gap: $spacing-4;
+      width: 100%;
+    }
+  }
+
+  .navItem {
+    a {
+      color: $text-primary;
+      text-decoration: none;
+      font-weight: $font-weight-medium;
+      transition: $transition-base;
+      
+      &:hover {
+        color: $primary-color;
+      }
+      
+      &.active {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+  }
+
+  .menuButton {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: $spacing-2;
+    
+    @include mobile {
+      display: block;
+    }
+  }
+
+  .langButton {
+    font-weight: $font-weight-medium;
+    min-width: 48px;
+  }
+
+  .contactButton {
+    @include button-primary;
+  }
+}

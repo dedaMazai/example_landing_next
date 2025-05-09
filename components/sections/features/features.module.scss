@@ -1,0 +1,97 @@
+@import "styles/mixins.scss";
+
+.features {
+  padding: $spacing-20 0;
+  background-color: white;
+  
+  .container {
+    @include container;
+  }
+  
+  .heading {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto $spacing-16;
+    
+    .subtitle {
+      @include body-small;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $primary-color;
+      font-weight: $font-weight-medium;
+      margin-bottom: $spacing-2;
+    }
+    
+    .title {
+      @include heading-2;
+      color: $dark-color;
+      margin-bottom: $spacing-4;
+    }
+    
+    .description {
+      @include body-regular;
+      color: $text-secondary;
+    }
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-8;
+    
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include desktop {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .featureCard {
+    @include card;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    
+    .iconWrapper {
+      width: 64px;
+      height: 64px;
+      border-radius: $border-radius-lg;
+      background-color: rgba($primary-color, 0.1);
+      @include flex-center;
+      margin-bottom: $spacing-4;
+      
+      svg {
+        color: $primary-color;
+      }
+    }
+    
+    .title {
+      @include heading-4;
+      color: $dark-color;
+      margin-bottom: $spacing-3;
+    }
+    
+    .description {
+      @include body-regular;
+      color: $text-secondary;
+      margin-bottom: $spacing-4;
+      flex-grow: 1;
+    }
+    
+    .link {
+      color: $primary-color;
+      text-decoration: none;
+      font-weight: $font-weight-medium;
+      display: flex;
+      align-items: center;
+      gap: $spacing-2;
+      transition: $transition-base;
+      
+      &:hover {
+        gap: $spacing-3;
+      }
+    }
+  }
+}

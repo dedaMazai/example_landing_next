@@ -9,7 +9,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import {routing} from '@/i18n/routing';
 import {setRequestLocale} from 'next-intl/server';
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin', 'cyrillic'],
   weight: ['400', '500', '700'],
   variable: '--font-inter',

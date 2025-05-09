@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 
 export function Hero() {
   const t = useTranslations('hero');
-  
+
   return (
     <section id="home" className={styles.hero}>
       <div className={styles.container}>

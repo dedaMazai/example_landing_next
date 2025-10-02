@@ -1,13 +1,15 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
-import { Header } from '@/components/header/header';
-import { Footer } from '@/components/footer/footer';
+import { ThemeProvider } from '@/src/app/providers/theme-provider';
+import { Header } from '@/src/widgets/header/header';
+import { Footer } from '@/src/widgets/footer/footer';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import {routing} from '@/i18n/routing';
 import {setRequestLocale} from 'next-intl/server';
+import cls from './style.module.scss';
+import { classNames } from '@/src/shared/lib/classNames/classNames';
 
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
@@ -19,10 +21,12 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}));
 }
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  
   let messages;
   try {
-    messages = (await import(`../../messages/${locale}.json`)).default;
+    messages = (await import(`../../i18n/locales/${locale}.json`)).default;
   } catch (error) {
     notFound();
   }
@@ -36,13 +40,13 @@ export async function generateMetadata({ params: { locale } }: { params: { local
       title: messages.metadata.title,
       description: messages.metadata.description,
       url: 'https://pioneer-work.com',
-      siteName: 'Pioneer Work',
+      siteName: 'Pioneer Digital Platform',
       images: [
         {
           url: 'https://example.com/og-image.jpg',
           width: 1200,
           height: 630,
-          alt: 'Pioneer Work Logo',
+          alt: 'Pioneer Digital Platform Logo',
         },
       ],
       locale: locale,
@@ -59,14 +63,16 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 
 export default async function RootLayout({
   children,
-  params: { locale }
+  params
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+  
   let messages;
   try {
-    messages = (await import(`../../messages/${locale}.json`)).default;
+    messages = (await import(`../../i18n/locales/${locale}.json`)).default;
   } catch (error) {
     notFound();
   }
@@ -75,7 +81,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={classNames(inter.className, cls.body)}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider
             attribute="class"

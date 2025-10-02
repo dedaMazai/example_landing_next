@@ -1,33 +1,30 @@
 // import { NextResponse } from 'next/server'
 // import type { NextRequest } from 'next/server'
+// import {routing} from '../i18n/routing';
 
-// // Список поддерживаемых локалей
-// const locales = ['en', 'ru']
-
-// // Получаем локаль из URL
 // function getLocale(request: NextRequest) {
 //   const pathname = request.nextUrl.pathname
 //   const pathnameLocale = pathname.split('/')[1]
-  
-//   if (locales.includes(pathnameLocale)) {
+
+//   if (routing.locales.includes(pathnameLocale as any)) {
 //     return pathnameLocale
 //   }
-  
-//   return 'en' // дефолтная локаль
+
+//   return routing.defaultLocale
 // }
 
-// export function middleware(request: NextRequest) {
+// export default function middleware(request: NextRequest) {
 //   const pathname = request.nextUrl.pathname
-  
+
 //   // Проверяем, есть ли локаль в пути
-//   const pathnameIsMissingLocale = locales.every(
+//   const pathnameIsMissingLocale = routing.locales.every(
 //     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
 //   )
- 
+
 //   // Редирект если локаль отсутствует
 //   if (pathnameIsMissingLocale) {
 //     const locale = getLocale(request)
- 
+
 //     return NextResponse.redirect(
 //       new URL(`/${locale}${pathname}`, request.url)
 //     )
@@ -35,20 +32,13 @@
 // }
 
 // export const config = {
-//   matcher: [
-//     // Пропускаем все внутренние пути Next.js
-//     '/((?!api|_next/static|_next/image|favicon.ico).*)',
-//   ],
-// } 
-
+//   matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)'
+// };
 import createMiddleware from 'next-intl/middleware';
 import {routing} from './i18n/routing';
- 
+
 export default createMiddleware(routing);
- 
+
 export const config = {
-  // Match all pathnames except for
-  // - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
-  // - … the ones containing a dot (e.g. `favicon.ico`)
   matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)'
 };

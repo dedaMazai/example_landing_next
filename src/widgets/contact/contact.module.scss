@@ -1,0 +1,206 @@
+@import "src/app/styles/variables.scss";
+
+.contact {
+  position: relative;
+  padding: 100px 0;
+  background: linear-gradient(180deg, #000000 0%, rgba(10, 10, 10, 1) 100%);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/></svg>');
+    background-size: 100px 100px;
+    opacity: 0.3;
+  }
+
+  .container {
+    max-width: $container-max-xl;
+    margin: 0 auto;
+    padding: 0 $spacing-4;
+    position: relative;
+    z-index: 1;
+
+    @media (min-width: $breakpoint-md) {
+      padding: 0 $spacing-6;
+    }
+
+    @media (min-width: $breakpoint-lg) {
+      padding: 0 $spacing-8;
+    }
+  }
+
+  .header {
+    text-align: left;
+    margin-bottom: 60px;
+  }
+
+  .title {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: $font-weight-bold;
+    line-height: 1.2;
+    color: #EFEDE7;
+    letter-spacing: -0.01em;
+  }
+
+  .formWrapper {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+
+    @media (max-width: #{$breakpoint-md - 1}) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      font-size: 14px;
+      font-weight: $font-weight-medium;
+      color: rgba(239, 237, 231, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      font-size: 16px;
+      color: #EFEDE7;
+      transition: all 0.3s ease;
+
+      &::placeholder {
+        color: rgba(239, 237, 231, 0.3);
+      }
+
+      &:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(239, 237, 231, 0.3);
+      }
+
+      &:hover {
+        border-color: rgba(239, 237, 231, 0.2);
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 150px;
+      font-family: inherit;
+    }
+  }
+
+  .formFooter {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 16px;
+  }
+
+  .checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+
+    input[type="checkbox"] {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      cursor: pointer;
+      accent-color: #EFEDE7;
+    }
+
+    span {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(239, 237, 231, 0.7);
+    }
+  }
+
+  .submitButton {
+    align-self: flex-start;
+    padding: 16px 48px;
+    background: #EFEDE7;
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: $font-weight-semibold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(239, 237, 231, 0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(239, 237, 231, 0.2);
+    }
+  }
+
+  .successMessage {
+    text-align: center;
+    padding: 60px 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+  }
+
+  .successTitle {
+    font-size: 28px;
+    font-weight: $font-weight-bold;
+    color: #EFEDE7;
+    margin-bottom: 16px;
+  }
+
+  .successText {
+    font-size: 18px;
+    color: rgba(239, 237, 231, 0.7);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    padding: 60px 0;
+
+    .header {
+      margin-bottom: 40px;
+    }
+
+    .title {
+      font-size: 28px;
+    }
+
+    .form {
+      gap: 20px;
+    }
+
+    .submitButton {
+      width: 100%;
+      align-self: stretch;
+    }
+  }
+}

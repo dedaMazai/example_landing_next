@@ -1,0 +1,138 @@
+@import "src/app/styles/variables.scss";
+
+.footer {
+  background: #000000;
+  padding: 80px 0 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+
+  .container {
+    max-width: $container-max-xl;
+    margin: 0 auto;
+    padding: 0 $spacing-4;
+
+    @media (min-width: $breakpoint-md) {
+      padding: 0 $spacing-6;
+    }
+
+    @media (min-width: $breakpoint-lg) {
+      padding: 0 $spacing-8;
+    }
+  }
+
+  .mainContent {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    margin-bottom: 60px;
+
+    @media (max-width: #{$breakpoint-lg - 1}) {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+  }
+
+  .brandSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .brandTitle {
+    font-size: 28px;
+    font-weight: $font-weight-bold;
+    color: #EFEDE7;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    max-width: 300px;
+
+    @media (max-width: #{$breakpoint-md - 1}) {
+      font-size: 24px;
+    }
+  }
+
+  .infoSection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+
+    @media (max-width: #{$breakpoint-md - 1}) {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+
+  .infoItem {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .label {
+    font-size: 14px;
+    font-weight: $font-weight-medium;
+    color: rgba(239, 237, 231, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .value {
+    font-size: 16px;
+    font-weight: $font-weight-medium;
+    color: #EFEDE7;
+    line-height: 1.5;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: rgba(239, 237, 231, 0.8);
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    @media (max-width: #{$breakpoint-md - 1}) {
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+  }
+
+  .copyright {
+    font-size: 14px;
+    color: rgba(239, 237, 231, 0.5);
+    line-height: 1.6;
+  }
+
+  .legal {
+    display: flex;
+    gap: 24px;
+
+    a {
+      font-size: 14px;
+      color: rgba(239, 237, 231, 0.7);
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #EFEDE7;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 60px 0 30px;
+
+    .mainContent {
+      margin-bottom: 40px;
+    }
+  }
+}

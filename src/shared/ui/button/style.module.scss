@@ -1,0 +1,128 @@
+@import "src/app/styles/variables.scss";
+
+.Button {
+  cursor: pointer;
+  color: $text-primary;
+  padding: $spacing-2 $spacing-4;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+      color: $accent-color;
+
+      .addonLeft svg, .addonRight svg {
+          color: $accent-color;
+      }
+  }
+}
+
+.withAddon {
+  padding: 0 $spacing-4;
+}
+
+.addonLeft, .addonRight {
+  display: flex;
+}
+
+.addonRight svg, .addonLeft svg {
+  color: $text-primary;
+}
+
+.clear {
+  padding: 0;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.filled {
+  background: $primary-color;
+  border: none;
+  outline: none;
+  border-radius: $border-radius-md;
+  color: $text-secondary;
+
+  &.secondary {
+    background: $secondary-color;
+    color: $text-primary;
+  }
+}
+
+.outline {
+  background: none;
+  border-radius: $border-radius-md;
+
+  &:hover {
+      border: 2px solid $accent-color;
+  }
+
+  &.normal {
+      border: 2px solid $accent-color;
+  }
+
+  &.error {
+      border: 2px solid $error-color;
+  }
+
+  &.success {
+      border: 2px solid $success-color;
+  }
+
+  &.secondary {
+      border: 2px solid $secondary-color;
+  }
+}
+
+.square {
+  padding: $spacing-2 !important;
+  // width: 20px;
+  // flex-shrink: 0;
+}
+
+.square.s {
+  width: $font-size-xs;
+  height: $font-size-xs;
+}
+
+// .square.m {
+//   width: $font-size-base;
+//   height: $font-size-base;
+// }
+
+// .square.l {
+//   width: $font-size-lg;
+//   height: $font-size-lg;
+// }
+
+.square.xl {
+  width: $font-size-xl;
+  height: $font-size-xl;
+}
+
+.s {
+  font-size: $font-size-xs;
+  line-height: $line-height-tight;
+}
+
+.m {
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+}
+
+.l {
+  font-size: $font-size-lg;
+  line-height: $line-height-normal;
+}
+
+.xl {
+  font-size: $font-size-xl;
+  line-height: $line-height-normal;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.fullWidth {
+  width: 100%;
+}

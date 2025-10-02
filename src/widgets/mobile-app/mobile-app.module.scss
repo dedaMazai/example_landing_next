@@ -1,0 +1,162 @@
+.mobileApp {
+  position: relative;
+  padding: 100px 0;
+  background: #000000;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.mockup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.phoneMockup {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+}
+
+.phoneFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 19;
+  background: linear-gradient(135deg, rgba(40, 40, 40, 1) 0%, rgba(20, 20, 20, 1) 100%);
+  border: 8px solid rgba(60, 60, 60, 1);
+  border-radius: 40px;
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.8),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.phoneNotch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 28px;
+  background: rgba(20, 20, 20, 1);
+  border-radius: 0 0 20px 20px;
+  z-index: 2;
+}
+
+.phoneScreen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(10, 10, 10, 1) 0%, rgba(5, 5, 5, 1) 100%);
+  overflow: hidden;
+}
+
+.screenContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 32px;
+}
+
+.appHeader {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.headerBar {
+  width: 60%;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+.appContent {
+  flex: 1;
+  padding: 20px 16px;
+  overflow: hidden;
+}
+
+.contentPlaceholder {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.placeholderItem {
+  width: 100%;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.textContent {
+  max-width: 550px;
+}
+
+.title {
+  font-size: clamp(28px, 4.5vw, 48px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #EFEDE7;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+.description {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: rgba(239, 237, 231, 0.7);
+}
+
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .mockup {
+    order: -1;
+  }
+
+  .textContent {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobileApp {
+    padding: 60px 0;
+  }
+
+  .content {
+    gap: 40px;
+  }
+
+  .phoneMockup {
+    max-width: 280px;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+}
+

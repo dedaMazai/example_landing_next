@@ -1,0 +1,126 @@
+@import "src/app/styles/variables.scss";
+
+.header {
+  width: 100%;
+  background: linear-gradient(to bottom right, #111213, $background-color);
+  display: flex;
+  justify-content: center;
+
+  .container {
+    width: 100%;
+    max-width: $container-max-3xl;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+
+    @media (min-width: $breakpoint-md) {
+      padding-left: $spacing-6;
+      padding-right: $spacing-6;
+    }
+
+    @media (min-width: $breakpoint-lg) {
+      padding-left: $spacing-8;
+      padding-right: $spacing-8;
+    }
+  }
+
+  .nav {
+    @media (min-width: $breakpoint-lg) {
+      display: flex;
+      align-items: center;
+    }
+
+    @media (max-width: #{$breakpoint-md - 1}) {
+      display: none;
+
+      &.mobileOpen {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background-color: white;
+        padding: $spacing-4;
+        box-shadow: $shadow-md;
+      }
+    }
+  }
+
+  .navList {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @media (min-width: $breakpoint-lg) {
+      flex-direction: row;
+      gap: $spacing-6;
+    }
+
+    @media (max-width: #{$breakpoint-md - 1}) {
+      flex-direction: column;
+      gap: $spacing-4;
+      width: 100%;
+    }
+  }
+
+  .navItem {
+    a {
+      color: $text-primary;
+      text-decoration: none;
+      font-weight: $font-weight-medium;
+      transition: $transition-base;
+
+      &:hover {
+        color: $primary-color;
+      }
+
+      &.active {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+  }
+
+  .menuButton {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: $spacing-2;
+    
+    @media (max-width: #{$breakpoint-md - 1}) {
+      display: block;
+    }
+  }
+
+  .langButton {
+    font-weight: $font-weight-medium;
+    min-width: 48px;
+  }
+
+  .contactButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $border-radius-md;
+    font-weight: $font-weight-medium;
+    padding: $spacing-2 $spacing-4;
+    transition: $transition-base;
+    cursor: pointer;
+    background-color: $primary-color;
+    color: $text-light;
+    border: 1px solid $primary-color;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}

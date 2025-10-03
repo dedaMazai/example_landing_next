@@ -2,7 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
 import { ThemeProvider } from '@/src/app/providers/theme-provider';
-import { Header } from '@/src/widgets/Header';
+import { Header } from '@/src/widgets/Header2';
 import { Footer } from '@/src/widgets/Footer2';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';

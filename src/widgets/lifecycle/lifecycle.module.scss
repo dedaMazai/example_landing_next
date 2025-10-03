@@ -1,113 +1,280 @@
 .lifecycle {
   position: relative;
-  padding: 100px 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.95) 100%);
+  padding: 160px 0;
   overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/></svg>');
-    background-size: 100px 100px;
-    opacity: 0.3;
-  }
+  min-height: 1080px;
+  background: #000000;
+  width: 100%;
+  max-width: 100vw;
 }
 
 .container {
-  max-width: 1280px;
+  max-width: 1920px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 90px;
   position: relative;
   z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (max-width: 1200px) {
+    padding: 0 60px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 24px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 16px;
+  }
 }
 
 .content {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1740px;
+  width: 100%;
+  padding-top: 70px;
 }
 
 .title {
-  font-size: clamp(28px, 5vw, 48px);
+  font-family: 'Open Sans', sans-serif;
+  font-size: clamp(36px, 5vw, 52px);
   font-weight: 700;
   line-height: 1.2;
-  color: #EFEDE7;
-  margin-bottom: 32px;
+  color: #FAFAFA;
+  margin-bottom: 42px;
   text-transform: none;
   letter-spacing: -0.02em;
+  text-align: center;
+  width: 100%;
+  max-width: 1740px;
 }
 
-.subtitle {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 60px;
-}
-
-.stageCount {
-  display: inline-block;
-  padding: 12px 32px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.imageContainer {
+  position: relative;
+  width: 100%;
+  max-width: 1623px;
+  height: 600px;
+  margin-bottom: 42px;
   border-radius: 8px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #EFEDE7;
-  letter-spacing: 0.05em;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    height: 450px;
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 768px) {
+    height: 300px;
+    margin-bottom: 24px;
+  }
 }
 
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.imageGradientOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(to right, 
+      rgba(0, 0, 0, 0.9) 0%, 
+      transparent 15%, 
+      transparent 85%, 
+      rgba(0, 0, 0, 0.9) 100%
+    ),
+    linear-gradient(to bottom, 
+      rgba(0, 0, 0, 0.7) 0%, 
+      transparent 20%, 
+      transparent 80%, 
+      rgba(0, 0, 0, 0.9) 100%
+    );
+  pointer-events: none;
+  z-index: 2;
+}
+
+// Горизонтальная линия с этапами и индикатором
+.stagesLine {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 1740px;
+  margin-bottom: 76px;
+}
+
+.startLabel,
+.endLabel {
+  font-size: 20px;
+  font-weight: 400;
+  color: #FAFAFA;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.lineContainer {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 63px;
+  min-width: 0;
+
+  @media (max-width: 768px) {
+    padding: 0 32px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 16px;
+  }
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background: rgba(250, 250, 250, 0.3);
+  position: relative;
+}
+
+.indicator {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 126px;
+  height: 8px;
+  background: #FAFAFA;
+  border-radius: 100px;
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+// Обычные кнопки-карточки features
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  max-width: 1000px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 1740px;
 }
 
 .feature {
-  padding: 32px 24px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  position: relative;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: 24px;
+  cursor: pointer;
   transition: all 0.3s ease;
+  border-radius: 8px;
+  text-align: left;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.15);
-    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  &.active {
+    background: rgba(255, 255, 255, 0.2);
   }
 }
 
 .featureLabel {
-  font-size: 18px;
-  font-weight: 500;
-  color: #EFEDE7;
-  line-height: 1.5;
+  font-size: 32px;
+  font-weight: 400;
+  color: #FAFAFA;
+  line-height: 1.2;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 1024px) {
+  .lifecycle {
+    padding: 80px 0;
+  }
+
+  .title {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+
+  .stagesLine {
+    margin-bottom: 32px;
+  }
+
+  .startLabel,
+  .endLabel {
+    font-size: 16px;
+  }
+
+  .indicator {
+    width: 80px;
+  }
+
+  .features {
+    gap: 16px;
+  }
+
+  .featureLabel {
+    font-size: 24px;
+  }
 }
 
 @media (max-width: 768px) {
   .lifecycle {
     padding: 60px 0;
+    min-height: 500px;
   }
 
   .title {
     font-size: 24px;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
+  }
+
+  .stagesLine {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .startLabel,
+  .endLabel {
+    font-size: 14px;
+  }
+
+  .lineContainer {
+    width: 100%;
+  }
+
+  .indicator {
+    width: 60px;
+    height: 6px;
   }
 
   .features {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 12px;
   }
 
   .feature {
-    padding: 24px 16px;
+    padding: 20px;
   }
 
-  .stageCount {
-    padding: 10px 24px;
-    font-size: 16px;
+  .featureLabel {
+    font-size: 20px;
   }
 }
 

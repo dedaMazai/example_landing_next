@@ -7,7 +7,7 @@ const nextConfig = {
   images: { unoptimized: true },
   sassOptions: {
     includePaths: ['./src/app/styles'],
-    prependData: `@import "src/app/styles/variables.scss";`,
+    prependData: `@use "src/app/styles/variables.scss" as *;`,
   },
   webpack(config) {
     config.module.rules.push({
@@ -15,8 +15,16 @@ const nextConfig = {
       use: ['@svgr/webpack']
     });
     return config;
-  }
+  },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
 };
 
-const withNextIntl = createNextIntlPlugin();
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 export default withNextIntl(nextConfig);

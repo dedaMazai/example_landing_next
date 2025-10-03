@@ -1,17 +1,17 @@
 // Colors
-$background-color: #121314;
+$background-color: #000000;
 
-$primary-color: #FAFAFA; // Deep blue
-$secondary-color: #0D0D0E; // Bright blue
-$accent-color: #FBBF24; // Accent yellow
-$dark-color: #111827; // Near black
-$light-color: #F9FAFB; // Off white
-$text-primary: #FAFAFA; // Dark gray for primary text
-$text-secondary: #000000; // Medium gray for secondary text
-$text-light: #727373; // Light text for dark backgrounds
-$success-color: #10B981; // Green
-$warning-color: #F59E0B; // Amber
-$error-color: #EF4444; // Red
+$primary-color: #FAFAFA;
+$secondary-color: #0D0D0E;
+$accent-color: #FBBF24;
+$dark-color: #000000;
+$light-color: #F9FAFB;
+$text-primary: #FAFAFA;
+$text-secondary: rgba(250, 250, 250, 0.7);
+$text-light: rgba(250, 250, 250, 0.5);
+$success-color: #10B981;
+$warning-color: #F59E0B;
+$error-color: #EF4444;
 
 // Font sizes
 $font-size-xs: 0.75rem; // 12px

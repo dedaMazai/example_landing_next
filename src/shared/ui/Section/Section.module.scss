@@ -1,0 +1,64 @@
+.section {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+// Background variants
+.bg-dark {
+  background: #000000;
+}
+
+.bg-darker {
+  background: linear-gradient(180deg, #000000 0%, rgba(10, 10, 10, 1) 100%);
+}
+
+.bg-gradient {
+  background: linear-gradient(135deg, #000000 0%, rgba(20, 20, 20, 1) 100%);
+}
+
+.bg-transparent {
+  background: transparent;
+}
+
+// Padding variants
+.padding-none {
+  padding: 0;
+}
+
+.padding-sm {
+  padding: $spacing-12 0;
+}
+
+.padding-md {
+  padding: $spacing-16 0;
+}
+
+.padding-lg {
+  padding: $spacing-20 0;
+}
+
+.padding-xl {
+  padding: $spacing-24 0;
+}
+
+@media (max-width: 768px) {
+  .padding-sm {
+    padding: $spacing-8 0;
+  }
+
+  .padding-md {
+    padding: $spacing-12 0;
+  }
+
+  .padding-lg {
+    padding: $spacing-16 0;
+  }
+
+  .padding-xl {
+    padding: $spacing-20 0;
+  }
+}
+

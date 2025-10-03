@@ -1,0 +1,72 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  transition: $transition-base;
+  border-radius: $border-radius-xl;
+}
+
+// Variants - matching Figma design
+.default {
+  background: rgba(250, 250, 250, 0.05);
+  border: 1px solid rgba(250, 250, 250, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.bordered {
+  background: transparent;
+  border: 2px solid rgba(250, 250, 250, 0.2);
+}
+
+.elevated {
+  background: rgba(250, 250, 250, 0.08);
+  border: 1px solid rgba(250, 250, 250, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+}
+
+.flat {
+  background: rgba(13, 13, 14, 0.8);
+  border: none;
+}
+
+// Padding
+.padding-none {
+  padding: 0;
+}
+
+.padding-sm {
+  padding: $spacing-3;
+}
+
+.padding-md {
+  padding: $spacing-6;
+}
+
+.padding-lg {
+  padding: $spacing-8;
+}
+
+// States
+.hoverable {
+  &:hover {
+    background: rgba(250, 250, 250, 0.08);
+    border-color: rgba(250, 250, 250, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  }
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .padding-md {
+    padding: $spacing-4;
+  }
+
+  .padding-lg {
+    padding: $spacing-6;
+  }
+}
+

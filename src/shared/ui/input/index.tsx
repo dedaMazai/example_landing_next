@@ -4,6 +4,10 @@ import { classNames } from '@/src/shared/lib/classNames/classNames';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
+/**
+ * Input - базовый компонент поля ввода
+ * @param className - дополнительные CSS классы
+ */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => {
     return (

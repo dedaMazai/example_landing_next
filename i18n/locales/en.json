@@ -8,54 +8,70 @@
   "nav": {
     "home": "Home",
     "about": "About",
+    "whatWeDo": "What We Do",
     "services": "Services",
+    "submitRequest": "Submit Request",
     "testimonials": "Testimonials",
-    "contact": "Contact Us"
+    "contact": "Contact Us",
+    "login": "Login"
   },
   "hero": {
     "preTitle": "",
-    "title": "PIONEER DIGITAL PLATFORM",
-    "description": "Digital platform for real estate management",
+    "title": "Pioneer Digital Platform",
+    "description": "Professional digital platform for comprehensive automation of development and construction companies.",
     "cta": {
       "primary": "Contact Us",
       "secondary": "Start Using"
+    },
+    "mockup": {
+      "alt": "Pioneer Digital Platform - platform interface"
     }
   },
   "lifecycle": {
     "title": "Covers the entire lifecycle of real estate objects",
     "subtitle": "12 stages",
+    "stagesLine": {
+      "start": "From construction",
+      "end": "To operation"
+    },
     "features": {
-      "comparison": "Comparative analysis",
-      "deals": "Sales and purchase",
+      "comparison": "Construction control",
+      "deals": "Sales and transfer",
       "management": "Property management"
     }
   },
   "management": {
     "title": "MANAGEMENT THROUGH A SINGLE PLATFORM",
     "features": {
-      "storage": "Storage objects",
+      "documents": "Deals and documents",
       "analytics": "Data analytics",
-      "monitoring": "Monitoring",
-      "incidents": "Event control",
-      "budget": "Budget and payments",
-      "residents": "Residents lobbies",
-      "tasks": "Tasks services",
-      "documents": "Objects and design",
-      "reports": "Statistics and reports",
-      "alerts": "Notifications and alerts",
-      "calendar": "Calendar and plans",
-      "integration": "Analytics integration"
+      "monitoring": "Object lists",
+      "incidents": "Work remarks",
+      "cheaklist": "Checklists",
+      "tasks": "Internal acceptance",
+      "residents": "Employee profile",
+      "budget": "Client acceptance",
+      "storage": "Object info",
+      "calendar": "Administration",
+      "alerts": "Acceptance requests",
+      "integration": "Client profiles"
     }
   },
   "ecosystem": {
-    "title": "PROFESSIONAL REAL ESTATE ECOSYSTEM",
-    "description": "Provides a built-in platform for management",
-    "imageAlt": "Real estate management platform"
+    "title": "Professional real estate ecosystem",
+    "description": "Provides end-to-end integration of all processes",
+    "imageAlt": "Real estate management platform",
+    "mockup": {
+      "alt": "Real estate management ecosystem - platform interface"
+    }
   },
   "mobileApp": {
-    "title": "MOBILE APPLICATION FOR PROPERTY OWNERS",
-    "description": "Stay always connected, interact, communicate, manage everything at once in 24/7 mode",
-    "imageAlt": "Mobile application"
+    "title": "Mobile application for property owners",
+    "description": "Balance, consumption statistics, security, cameras, remote access to doors and 24/7 support.",
+    "imageAlt": "Mobile application",
+    "mockup": {
+      "alt": "Mobile application for property owners"
+    }
   },
   "partners": {
     "title": "Our partners"
@@ -161,6 +177,7 @@
   "contact": {
     "subtitle": "Get In Touch",
     "title": "WORK WITH US",
+    "tagline": "Connect PDP and optimize your projects today!",
     "description": "Have questions or ready to start your next project? Our team is here to help. Reach out to us through any of the following channels or fill out the form, and we'll get back to you shortly.",
     "info": {
       "location": {
@@ -177,11 +194,18 @@
       }
     },
     "form": {
-      "name": "Your Name",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "company": "Company",
+      "companyPlaceholder": "Enter company name",
+      "contact": "Phone/Email",
+      "contactPlaceholder": "Enter phone number or email",
       "email": "Email Address",
       "phone": "Phone Number",
       "message": "Your Message",
-      "submit": "Send Message",
+      "submit": "Submit Request",
+      "privacy": "I agree to the processing of personal data in accordance with the",
+      "privacyLink": "Privacy Policy",
       "successTitle": "Message Sent!",
       "success": "Thank you for your message! We will get back to you soon."
     }
@@ -191,6 +215,12 @@
     "company": "Company",
     "resources": "Resources",
     "legal": "Legal",
+    "contactEmail": "Contact e-mail",
+    "contactPhone": "Contact",
+    "address": "Address",
+    "emailValue": "info@pioneerwork.com",
+    "phoneValue": "+7 (999) 999-99-99",
+    "addressValue": "Moscow",
     "links": {
       "about": "About",
       "services": "Services",
@@ -206,5 +236,56 @@
       "compliance": "Compliance"
     },
     "copyright": "© {year} Pioneer Digital Platform. All rights reserved."
+  },
+  "privacyPolicy": {
+    "title": "PRIVACY POLICY",
+    "lastUpdated": "Last updated: {date}",
+    "sections": {
+      "intro": {
+        "title": "Introduction",
+        "content": "Pioneer Digital Platform (\"we\", \"us\", or \"our\") respects the privacy of our website visitors and users of our services. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services."
+      },
+      "collection": {
+        "title": "Information Collection",
+        "content": "We collect information you provide directly to us, such as your name, email address, phone number, and other contact information. We also automatically collect certain information about your device when you access our website, including IP address, browser type, and operating system."
+      },
+      "usage": {
+        "title": "Use of Information",
+        "content": "We use the information we collect to provide, maintain, and improve our services, communicate with you, personalize your experience, and comply with legal obligations. We may use your information to send marketing communications if you have consented to receive them."
+      },
+      "sharing": {
+        "title": "Information Sharing",
+        "content": "We do not sell your personal information to third parties. We may share your information with service providers who assist us in our operations, and when required by law or to protect our rights."
+      },
+      "security": {
+        "title": "Data Security",
+        "content": "We implement reasonable security measures to protect your personal information from unauthorized access, use, or disclosure. However, no method of transmission over the Internet or electronic storage is completely secure."
+      },
+      "rights": {
+        "title": "Your Rights",
+        "content": "You have the right to access, correct, or delete your personal information. You may also object to the processing of your information or request restriction of processing. To exercise these rights, please contact us using the information below."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "content": "We use cookies and similar tracking technologies to enhance your experience on our website. You can set your browser to reject all cookies, but this may limit some features of our website."
+      },
+      "children": {
+        "title": "Children's Privacy",
+        "content": "Our services are not intended for individuals under 18 years of age. We do not knowingly collect personal information from children. If you are a parent or guardian and believe your child has provided us with personal information, please contact us."
+      },
+      "changes": {
+        "title": "Changes to Policy",
+        "content": "We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the \"Last updated\" date above."
+      },
+      "contact": {
+        "title": "Contact Information",
+        "content": "If you have any questions about this Privacy Policy, please contact us:"
+      }
+    },
+    "contactInfo": {
+      "email": "Email: info@pioneerwork.com",
+      "phone": "Phone: +1 (415) 555-2671",
+      "address": "Address: 123 Innovation Street, San Francisco, CA 94103, USA"
+    }
   }
 }

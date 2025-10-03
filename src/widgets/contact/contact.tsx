@@ -3,19 +3,30 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import cls from './contact.module.scss';
-import { Button } from '@/src/shared/ui/button';
+import { Button } from '@/src/shared/ui/Button';
 import { useTranslations } from 'next-intl';
+import { Container } from '@/src/shared/ui/Container';
+import { Heading } from '@/src/shared/ui/Typography';
+import { FormInput } from '@/src/shared/ui/FormInput';
+import { Checkbox } from '@/src/shared/ui/Checkbox';
+import { Section } from '@/src/shared/ui/Section';
+import GroupPDP from '@/src/shared/assets/icons/GroupPDP.svg';
+import { Icon } from '@/src/shared/ui/Icon';
+import Link from 'next/link';
+import cls from './Contact.module.scss';
 
+/**
+ * Contact - форма обратной связи для оставления заявок
+ */
 export function Contact() {
   const t = useTranslations('contact');
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
-    phone: '',
+    company: '',
+    contact: '',
     message: ''
   });
-  
+
   const [formStatus, setFormStatus] = useState({
     submitted: false,
     success: false,
@@ -34,128 +45,123 @@ export function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // In a real app, this would send the form data to a backend API
-    console.log('Form submitted:', formData);
-    
+    // console.log('Form submitted:', formData);
+
     // Simulate form submission
     setFormStatus({
       submitted: true,
       success: true,
       message: t('form.success')
     });
-    
+
     // Reset form
     setFormData({
       name: '',
-      email: '',
-      phone: '',
+      company: '',
+      contact: '',
       message: ''
     });
   };
 
   return (
-    <section id="contact" className={cls.contact}>
-      <div className={cls.container}>
-        <motion.div 
-          className={cls.header}
-          ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h2 className={cls.title}>
-            {t('title')}
-          </h2>
-        </motion.div>
-        
-        <motion.div 
-          className={cls.formWrapper}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          {formStatus.submitted && formStatus.success ? (
-            <div className={cls.successMessage}>
-              <h3 className={cls.successTitle}>{t('form.successTitle')}</h3>
-              <p className={cls.successText}>{formStatus.message}</p>
+    <Section id="contact" className={cls.contact} background="darker" padding="lg">
+      <Container>
+        <div className={cls.contentWrapper}>
+          {/* Left Column - Title & Description */}
+          <motion.div
+            className={cls.leftColumn}
+            ref={ref}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.8 }}
+          >
+            <Heading level={2} className={cls.title}>
+              {t('title')}
+            </Heading>
+            
+            <div className={cls.iconWrapper}>
+              <Icon Svg={GroupPDP} className={cls.groupIcon} />
             </div>
-          ) : (
-            <form className={cls.form} onSubmit={handleSubmit}>
-              <div className={cls.formRow}>
-                <div className={cls.inputGroup}>
-                  <label htmlFor="name">{t('form.name')}</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    placeholder={t('form.name')}
-                  />
-                </div>
-                
-                <div className={cls.inputGroup}>
-                  <label htmlFor="email">{t('form.email')}</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder={t('form.email')}
-                  />
-                </div>
-              </div>
 
-              <div className={cls.inputGroup}>
-                <label htmlFor="phone">{t('form.phone')}</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder={t('form.phone')}
-                />
+            <div className={cls.subtitleWrapper}>
+              <p className={cls.subtitle}>
+                {t('tagline')}
+              </p>
+              <div className={cls.decorativeLine} />
+            </div>
+          </motion.div>
+
+          {/* Right Column - Form */}
+          <motion.div
+            className={cls.formWrapper}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {formStatus.submitted && formStatus.success ? (
+              <div className={cls.successMessage}>
+                <h3 className={cls.successTitle}>{t('form.successTitle')}</h3>
+                <p className={cls.successText}>{formStatus.message}</p>
               </div>
-              
-              <div className={cls.inputGroup}>
-                <label htmlFor="message">{t('form.message')}</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
+            ) : (
+              <form className={cls.form} onSubmit={handleSubmit}>
+                <FormInput
+                  label={t('form.name')}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   required
-                  rows={6}
-                  placeholder={t('form.message')}
-                ></textarea>
-              </div>
-              
-              <div className={cls.formFooter}>
-                <label className={cls.checkbox}>
-                  <input type="checkbox" required />
-                  <span>Я согласен на обработку персональных данных с подробностями политики конфиденциальности</span>
-                </label>
-                
-                <Button 
-                  type="submit" 
-                  className={cls.submitButton} 
-                  size="l"
+                  placeholder={t('form.namePlaceholder')}
+                />
+
+                <FormInput
+                  label={t('form.company')}
+                  type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  required
+                  placeholder={t('form.companyPlaceholder')}
+                />
+
+                <FormInput
+                  label={t('form.contact')}
+                  type="text"
+                  name="contact"
+                  value={formData.contact}
+                  onChange={handleChange}
+                  required
+                  placeholder={t('form.contactPlaceholder')}
+                />
+
+                <Checkbox
+                  label={
+                    <>
+                      {t('form.privacy')}{' '}
+                      <Link href="/privacy_policy" className={cls.privacyLink}>
+                        {t('form.privacyLink')}
+                      </Link>
+                    </>
+                  }
+                  required
+                />
+
+                <Button
+                  type="submit"
+                  className={cls.submitButton}
                   variant="filled"
-                  color="normal"
+                  fullWidth
                 >
                   {t('form.submit')}
                 </Button>
-              </div>
-            </form>
-          )}
-        </motion.div>
-      </div>
-    </section>
+              </form>
+            )}
+          </motion.div>
+        </div>
+      </Container>
+    </Section>
   );
 }

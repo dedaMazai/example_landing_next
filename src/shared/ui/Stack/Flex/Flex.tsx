@@ -59,6 +59,18 @@ export interface FlexProps extends DivProps {
     fullHeight?: boolean;
 }
 
+/**
+ * Flex - базовый компонент для flexbox-лейаутов
+ * @param className - дополнительные CSS классы
+ * @param children - содержимое
+ * @param justify - выравнивание по главной оси
+ * @param align - выравнивание по поперечной оси
+ * @param direction - направление flex (row или column)
+ * @param wrap - разрешить перенос элементов
+ * @param gap - отступы между элементами
+ * @param max - растянуть на всю ширину
+ * @param fullHeight - растянуть на всю высоту
+ */
 export const Flex = (props: FlexProps) => {
     const {
         className,

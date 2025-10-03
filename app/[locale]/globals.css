@@ -10,16 +10,28 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: var(--font-open-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #000000;
-  color: #EFEDE7;
+  color: #FAFAFA;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+main {
+  width: 100%;
+  max-width: 100vw;
   overflow-x: hidden;
 }
 
@@ -33,9 +45,11 @@ button {
 }
 
 :root {
-  --primary-color: #EFEDE7;
+  --primary-color: #FAFAFA;
   --background-dark: #000000;
-  --background-light: rgba(239, 237, 231, 0.05);
+  --background-light: rgba(250, 250, 250, 0.05);
+  --text-primary: #FAFAFA;
+  --text-secondary: rgba(250, 250, 250, 0.7);
 }
 
 @layer base {

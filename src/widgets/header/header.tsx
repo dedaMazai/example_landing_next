@@ -4,14 +4,18 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { Button } from '@/src/shared/ui/button';
+import { Button } from '@/src/shared/ui/Button';
 import { Icon } from '@/src/shared/ui/Icon';
 import LogoBig from '@/src/shared/assets/icons/LogoBig.svg';
 import Burger from '@/src/shared/assets/icons/Menu.svg';
 import Cross from '@/src/shared/assets/icons/Cross.svg';
-import cls from './header.module.scss';
 import { classNames } from '@/src/shared/lib/classNames/classNames';
+import { HStack } from '@/src/shared/ui/Stack';
+import cls from './Header.module.scss';
 
+/**
+ * Header - шапка сайта с навигацией и переключателем языка
+ */
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -42,7 +46,7 @@ export function Header() {
     <header className={classNames(cls.header, { [cls.scrolled]: isScrolled })}>
       <div className={cls.container}>
         <Link href="/" className={cls.logo}>
-          <Icon Svg={LogoBig} height={28} width={204} color='#EFEDE7' />
+          <Icon Svg={LogoBig} height={28} width={104} color='#EFEDE7' />
         </Link>
 
         <button className={cls.menuButton} onClick={toggleMobileMenu} aria-label="Toggle menu">
@@ -52,15 +56,18 @@ export function Header() {
         <nav className={classNames(cls.nav, { [cls.mobileOpen]: mobileMenuOpen })}>
           <ul className={cls.navList}>
             <li className={cls.navItem}>
-              <Link href="#home">{t('home')}</Link>
+              <Link href="/#home">{t('home')}</Link>
             </li>
             <li className={cls.navItem}>
-              <Link href="#contact">{t('contact')}</Link>
+              <Link href="/#about">{t('whatWeDo')}</Link>
+            </li>
+            <li className={cls.navItem}>
+              <Link href="/#contact">{t('submitRequest')}</Link>
             </li>
           </ul>
         </nav>
 
-        <div className={cls.actions}>
+        <HStack gap="16" className={cls.actions}>
           <Button
             variant="filled"
             color="secondary"
@@ -71,10 +78,19 @@ export function Header() {
           >
             {locale === 'en' ? 'RU' : 'EN'}
           </Button>
-          <Link href="#contact" className={cls.contactButton}>
-            {t('contact')}
-          </Link>
-        </div>
+          <Button
+            as="link"
+            href="#contact"
+            variant="filled"
+            color="normal"
+            size="s"
+            onClick={() => {
+              window.open('https://pdp.pioneer.ru', '_blank');
+            }}
+          >
+            {t('login')}
+          </Button>
+        </HStack>
       </div>
     </header>
   );

@@ -2,11 +2,17 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import cls from './partners.module.scss';
 import { classNames } from '@/src/shared/lib/classNames/classNames';
+import Image from 'next/image';
+import cls from './Partners.module.scss';
 
 interface PartnersProps {
   className?: string;
+}
+
+interface Partner {
+  name: string;
+  logoPath: string;
 }
 
 /**
@@ -16,9 +22,9 @@ interface PartnersProps {
 export const Partners = ({ className }: PartnersProps) => {
   const t = useTranslations('partners');
 
-  const partners = [
-    { name: 'PIONEER', logo: 'PIONEER' },
-    { name: 'MERED', logo: 'MERED' },
+  const partners: Partner[] = [
+    { name: 'PIONEER', logoPath: '/images/partners/PIONEER.png' },
+    { name: 'MERED', logoPath: '/images/partners/MERED.png' },
   ];
 
   return (
@@ -44,8 +50,15 @@ export const Partners = ({ className }: PartnersProps) => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <div className={cls.partnerLogo}>
-                <span className={cls.logoText}>{partner.logo}</span>
+              <div className={cls.logoWrapper}>
+                <Image
+                  src={partner.logoPath}
+                  alt={partner.name}
+                  fill
+                  className={cls.partnerLogo}
+                  style={{ objectFit: 'contain' }}
+                  unoptimized
+                />
               </div>
             </motion.div>
           ))}

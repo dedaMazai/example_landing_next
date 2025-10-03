@@ -1,0 +1,144 @@
+// Base styles
+.heading,
+.text {
+  margin: 0;
+  padding: 0;
+}
+
+// Heading default sizes - matching Figma design
+.h1 {
+  font-size: clamp(48px, 8vw, 90px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.h2 {
+  font-size: clamp(32px, 5vw, 62px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.h3 {
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.h4 {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.h5 {
+  font-size: clamp(20px, 2.5vw, 24px);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.h6 {
+  font-size: clamp(18px, 2vw, 20px);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+// Custom sizes
+.size-xs {
+  font-size: $font-size-xs;
+}
+
+.size-sm {
+  font-size: $font-size-sm;
+}
+
+.size-base {
+  font-size: $font-size-base;
+}
+
+.size-md {
+  font-size: $font-size-lg;
+}
+
+.size-lg {
+  font-size: $font-size-xl;
+}
+
+.size-xl {
+  font-size: $font-size-2xl;
+}
+
+.size-2xl {
+  font-size: $font-size-3xl;
+}
+
+.size-3xl {
+  font-size: $font-size-4xl;
+}
+
+.size-4xl {
+  font-size: $font-size-5xl;
+}
+
+.size-5xl {
+  font-size: $font-size-6xl;
+}
+
+.size-6xl {
+  font-size: clamp(60px, 10vw, 120px);
+}
+
+// Font weights
+.weight-normal {
+  font-weight: $font-weight-normal;
+}
+
+.weight-medium {
+  font-weight: $font-weight-medium;
+}
+
+.weight-semibold {
+  font-weight: $font-weight-semibold;
+}
+
+.weight-bold {
+  font-weight: $font-weight-bold;
+}
+
+// Text alignment
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+// Colors - matching Figma design
+.color-primary {
+  color: #FAFAFA;
+}
+
+.color-secondary {
+  color: rgba(250, 250, 250, 0.7);
+}
+
+.color-white {
+  color: #FFFFFF;
+}
+
+.color-muted {
+  color: rgba(250, 250, 250, 0.5);
+}
+
+// Text specific styles
+.text {
+  line-height: 1.6;
+}
+

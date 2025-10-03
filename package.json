@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev -p 3000 --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -14,8 +14,8 @@
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.21",
-    "eslint": "^9.36.0",
-    "eslint-config-next": "^13.5.1",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.5.4",
     "framer-motion": "^12.23.22",
     "next": "^15.5.4",
     "next-intl": "^4.3.9",

@@ -1,89 +1,76 @@
-@import "src/app/styles/variables.scss";
-
 .hero {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #000000 0%, rgba(20, 20, 20, 1) 100%);
-  position: relative;
-  overflow: hidden;
+  min-height: 1080px;
+  height: 1080px;
   display: flex;
   align-items: center;
-  padding: 120px 0 80px;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
-    pointer-events: none;
-  }
-  
-  .container {
-    width: 100%;
-    max-width: $container-max-xl;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: $spacing-4;
-    padding-right: $spacing-4;
-    position: relative;
-    z-index: 2;
-
-    @media (min-width: $breakpoint-md) {
-      padding-left: $spacing-6;
-      padding-right: $spacing-6;
-    }
-
-    @media (min-width: $breakpoint-lg) {
-      padding-left: $spacing-8;
-      padding-right: $spacing-8;
-    }
-  }
+  padding: 0;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
 
   .heroContent {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    z-index: 2;
+    grid-template-columns: 1046px 1fr;
+    gap: 0;
     align-items: center;
+    position: relative;
+    padding-left: 90px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    @media (max-width: 1400px) {
+      grid-template-columns: 1fr 1fr;
+      padding-left: 60px;
+    }
 
     @media (max-width: #{$breakpoint-lg - 1}) {
       grid-template-columns: 1fr;
       gap: 50px;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    @media (max-width: 480px) {
+      padding-left: 16px;
+      padding-right: 16px;
     }
   }
   
   .content {
-    max-width: 550px;
+    max-width: 1046px;
+    padding-top: 365px;
     
     @media (max-width: #{$breakpoint-lg - 1}) {
       max-width: 100%;
       text-align: center;
       margin: 0 auto;
+      padding-top: 200px;
     }
   }
   
   .title {
-    font-size: clamp(32px, 6vw, 64px);
-    font-weight: $font-weight-bold;
-    line-height: 1.1;
-    color: #EFEDE7;
-    margin-bottom: $spacing-6;
-    letter-spacing: 0.02em;
-
-    @media (max-width: #{$breakpoint-md - 1}) {
-      font-size: 36px;
-    }
+    margin-bottom: 44px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(40px, 6vw, 90px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #FAFAFA;
+    text-transform: uppercase;
+    font-stretch: 100%;
   }
   
   .description {
-    font-size: $font-size-lg;
-    line-height: $line-height-normal;
-    color: rgba(239, 237, 231, 0.7);
-    margin-bottom: $spacing-8;
-    max-width: 480px;
+    margin-bottom: 44px;
+    max-width: 707px;
+    color: #FAFAFA;
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 400;
+    font-stretch: 75%;
+    line-height: 1.6;
 
     @media (max-width: #{$breakpoint-lg - 1}) {
       max-width: 100%;
@@ -93,161 +80,116 @@
   }
   
   .actions {
-    display: flex;
-    gap: $spacing-4;
-    
+    flex-wrap: wrap;
+
     @media (max-width: #{$breakpoint-lg - 1}) {
       justify-content: center;
     }
 
-    @media (max-width: #{$breakpoint-md - 1}) {
+    @media (max-width: 768px) {
       flex-direction: column;
-      align-items: center;
-    }
-  }
-  
-  .primaryButton {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: $border-radius-md;
-    font-weight: $font-weight-medium;
-    padding: $spacing-3 $spacing-6;
-    transition: $transition-base;
-    cursor: pointer;
-    background-color: #EFEDE7;
-    color: #000000;
-    border: 1px solid #EFEDE7;
+      align-items: stretch;
+      gap: 16px !important;
 
-    &:hover {
-      background-color: rgba(239, 237, 231, 0.9);
-    }
-  }
-  
-  .secondaryButton {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: $border-radius-md;
-    font-weight: $font-weight-medium;
-    padding: $spacing-3 $spacing-6;
-    transition: $transition-base;
-    cursor: pointer;
-    background-color: transparent;
-    color: #EFEDE7;
-    border: 1px solid rgba(239, 237, 231, 0.3);
-
-    &:hover {
-      background-color: rgba(239, 237, 231, 0.1);
-      border-color: rgba(239, 237, 231, 0.5);
+      :global(a) {
+        width: 100% !important;
+      }
     }
   }
 
   .mockup {
+    position: absolute;
+    top: -140px;
+    right: -150px;
+    width: 1737.89px;
+    height: 1367px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    pointer-events: none;
+    max-width: none;
+
+    @media (max-width: 1600px) {
+      right: -100px;
+      width: 1400px;
+      height: 1100px;
+    }
+
+    @media (max-width: 1400px) {
+      width: 1200px;
+      height: 945px;
+      top: -95px;
+      right: -80px;
+    }
+
+    @media (max-width: #{$breakpoint-lg - 1}) {
+      position: relative;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      order: -1;
+      justify-content: center;
+    }
+  }
+
+  .mockupImageWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 100%;
+  }
+
+  .laptopImage {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
 
     @media (max-width: #{$breakpoint-lg - 1}) {
-      order: -1;
+      max-width: 600px;
+    }
+
+    @media (max-width: 480px) {
+      max-width: 100%;
     }
   }
 
-  .laptopMockup {
-    width: 100%;
-    max-width: 600px;
-    position: relative;
-  }
-
-  .laptopScreen {
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    background: linear-gradient(135deg, rgba(60, 60, 60, 1) 0%, rgba(40, 40, 40, 1) 100%);
-    border-radius: 12px 12px 0 0;
-    border: 8px solid rgba(50, 50, 50, 1);
-    border-bottom: none;
-    overflow: hidden;
-    box-shadow: 
-      0 0 0 1px rgba(255, 255, 255, 0.1),
-      0 30px 80px rgba(0, 0, 0, 0.8);
-    position: relative;
-  }
-
-  .screenContent {
+  .mockupGradientOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, rgba(20, 20, 20, 1) 0%, rgba(10, 10, 10, 1) 100%);
-    overflow: hidden;
-  }
+    background: radial-gradient(
+      ellipse 60% 55% at 50% 45%,
+      transparent 0%,
+      transparent 35%,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0.6) 65%,
+      rgba(0, 0, 0, 0.85) 80%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    pointer-events: none;
+    z-index: 2;
 
-  .mockupWindow {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .windowHeader {
-    padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.04);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .windowDots {
-    display: flex;
-    gap: 8px;
-
-    span {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.25);
+    @media (max-width: #{$breakpoint-lg - 1}) {
+      background: radial-gradient(
+        ellipse 55% 50% at 50% 45%,
+        transparent 0%,
+        transparent 25%,
+        rgba(0, 0, 0, 0.4) 45%,
+        rgba(0, 0, 0, 0.7) 65%,
+        rgba(0, 0, 0, 0.9) 85%,
+        rgba(0, 0, 0, 1) 100%
+      );
     }
-  }
-
-  .windowContent {
-    flex: 1;
-    padding: 20px;
-    overflow: hidden;
-  }
-
-  .contentGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    height: 100%;
-  }
-
-  .gridCard {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.15);
-    }
-  }
-
-  .cardImage {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-  }
-
-  .laptopBase {
-    width: 110%;
-    height: 16px;
-    background: linear-gradient(180deg, rgba(50, 50, 50, 1) 0%, rgba(30, 30, 30, 1) 100%);
-    border-radius: 0 0 8px 8px;
-    margin: 0 auto;
-    position: relative;
-    left: -5%;
-    box-shadow: 
-      0 0 0 1px rgba(255, 255, 255, 0.08),
-      0 10px 30px rgba(0, 0, 0, 0.6);
   }
 
   @media (max-width: 768px) {
@@ -255,11 +197,6 @@
 
     .heroContent {
       gap: 40px;
-    }
-
-    .contentGrid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
     }
   }
 }

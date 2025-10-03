@@ -7,6 +7,11 @@ interface IconProps extends SVGProps<SVGSVGElement> {
     Svg: FC<React.SVGProps<SVGSVGElement>>;
 }
 
+/**
+ * Icon - компонент для отображения SVG иконок
+ * @param className - дополнительные CSS классы
+ * @param Svg - SVG компонент иконки
+ */
 export const Icon = memo((props: IconProps) => {
     const {
         className,

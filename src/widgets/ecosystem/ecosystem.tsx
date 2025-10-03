@@ -2,8 +2,9 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import cls from './ecosystem.module.scss';
+import Image from 'next/image';
 import { classNames } from '@/src/shared/lib/classNames/classNames';
+import cls from './Ecosystem.module.scss';
 
 interface EcosystemProps {
   className?: string;
@@ -38,26 +39,29 @@ export const Ecosystem = ({ className }: EcosystemProps) => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className={cls.mockupImage}>
-              <div className={cls.mockupScreen}>
-                <div className={cls.screenHeader}>
-                  <div className={cls.screenDots}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                </div>
-                <div className={cls.screenContent}>
-                  <div className={cls.contentGrid}>
-                    {[...Array(6)].map((_, i) => (
-                      <div key={i} className={cls.gridItem}>
-                        <div className={cls.itemPlaceholder}></div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Image
+              src="/images/mockups/ecosystem-laptop.png"
+              alt={t('mockup.alt')}
+              width={1200}
+              height={800}
+              className={cls.laptopImage}
+            />
+          </motion.div>
+
+          <motion.div
+            className={cls.backgroundImageContainer}
+            initial={{ opacity: 0, scale: 0.9, y: 50 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <Image
+              src="/images/backgrounds/3D-Lines.png"
+              alt={t('mockup.alt')}
+              width={1200}
+              height={800}
+              className={cls.backgroundImage}
+              priority
+            />
           </motion.div>
         </div>
       </div>

@@ -2,8 +2,9 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import cls from './mobile-app.module.scss';
+import Image from 'next/image';
 import { classNames } from '@/src/shared/lib/classNames/classNames';
+import cls from './MobileApp.module.scss';
 
 interface MobileAppProps {
   className?: string;
@@ -27,24 +28,13 @@ export const MobileApp = ({ className }: MobileAppProps) => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className={cls.phoneMockup}>
-              <div className={cls.phoneFrame}>
-                <div className={cls.phoneNotch}></div>
-                <div className={cls.phoneScreen}>
-                  <div className={cls.screenContent}>
-                    <div className={cls.appHeader}>
-                      <div className={cls.headerBar}></div>
-                    </div>
-                    <div className={cls.appContent}>
-                      <div className={cls.contentPlaceholder}>
-                        <div className={cls.placeholderItem}></div>
-                        <div className={cls.placeholderItem}></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Image
+              src="/images/mockups/mobile-app.png"
+              alt={t('mockup.alt')}
+              width={320}
+              height={640}
+              className={cls.phoneImage}
+            />
           </motion.div>
 
           <motion.div
@@ -56,6 +46,23 @@ export const MobileApp = ({ className }: MobileAppProps) => {
           >
             <h2 className={cls.title}>{t('title')}</h2>
             <p className={cls.description}>{t('description')}</p>
+          </motion.div>
+
+
+          <motion.div
+            className={cls.backgroundImageContainer}
+            initial={{ opacity: 0, scale: 0.9, y: 50 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <Image
+              src="/images/backgrounds/3D-Lines-second.png"
+              alt={t('mockup.alt')}
+              width={1200}
+              height={800}
+              className={cls.backgroundImage}
+              priority
+            />
           </motion.div>
         </div>
       </div>

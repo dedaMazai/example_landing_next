@@ -1,20 +1,20 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Open_Sans } from 'next/font/google';
 import { ThemeProvider } from '@/src/app/providers/theme-provider';
-import { Header } from '@/src/widgets/header/header';
-import { Footer } from '@/src/widgets/footer/footer';
+import { Header } from '@/src/widgets/Header';
+import { Footer } from '@/src/widgets/Footer';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import {routing} from '@/i18n/routing';
 import {setRequestLocale} from 'next-intl/server';
-import cls from './style.module.scss';
 import { classNames } from '@/src/shared/lib/classNames/classNames';
+import cls from './style.module.scss';
 
-const inter = Inter({
+const openSans = Open_Sans({
   subsets: ['latin', 'cyrillic'],
-  weight: ['400', '500', '700'],
-  variable: '--font-inter',
+  weight: ['400', '600', '700'],
+  variable: '--font-open-sans',
 });
 
 export function generateStaticParams() {
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   let messages;
   try {
     messages = (await import(`../../i18n/locales/${locale}.json`)).default;
-  } catch (error) {
+  } catch {
     notFound();
   }
 
@@ -36,6 +36,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     description: messages.metadata.description,
     keywords: messages.metadata.keywords,
     authors: [{ name: messages.metadata.author }],
+    icons: {
+      icon: [
+        { url: '/favicon.svg', type: 'image/svg+xml' },
+      ],
+      shortcut: '/favicon.svg',
+      apple: '/favicon.svg',
+    },
     openGraph: {
       title: messages.metadata.title,
       description: messages.metadata.description,
@@ -73,7 +80,7 @@ export default async function RootLayout({
   let messages;
   try {
     messages = (await import(`../../i18n/locales/${locale}.json`)).default;
-  } catch (error) {
+  } catch {
     notFound();
   }
 
@@ -81,7 +88,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={classNames(inter.className, cls.body)}>
+      <body className={classNames(openSans.className, cls.body)}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider
             attribute="class"

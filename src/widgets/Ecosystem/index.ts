@@ -1,2 +1,0 @@
-export { Ecosystem } from './Ecosystem';
-

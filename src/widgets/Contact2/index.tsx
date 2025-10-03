@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Button } from '@/src/shared/ui/Button';
+import { Button } from '@/src/shared/ui/Button2';
 import { useTranslations } from 'next-intl';
 import { Container } from '@/src/shared/ui/Container';
 import { Heading } from '@/src/shared/ui/Typography';
@@ -13,7 +13,7 @@ import { Section } from '@/src/shared/ui/Section';
 import GroupPDP from '@/src/shared/assets/icons/GroupPDP.svg';
 import { Icon } from '@/src/shared/ui/Icon';
 import Link from 'next/link';
-import cls from './Contact.module.scss';
+import cls from './Contact2.module.scss';
 
 /**
  * Contact - форма обратной связи для оставления заявок

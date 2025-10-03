@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, ReactNode } from 'react';
 import Image from 'next/image';
 import { classNames } from '@/src/shared/lib/classNames/classNames';
-import { Button } from '@/src/shared/ui/Button';
+import { Button } from '@/src/shared/ui/Button2';
 import { FeatureIcon } from '@/src/shared/ui/FeatureIcon';
 import cls from './Management.module.scss';
 

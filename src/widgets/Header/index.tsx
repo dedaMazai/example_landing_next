@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { Button } from '@/src/shared/ui/Button';
+import { Button } from '@/src/shared/ui/Button2';
 import { Icon } from '@/src/shared/ui/Icon';
 import LogoBig from '@/src/shared/assets/icons/LogoBig.svg';
 import Burger from '@/src/shared/assets/icons/Menu.svg';

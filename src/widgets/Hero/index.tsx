@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Button } from '@/src/shared/ui/Button';
+import { Button } from '@/src/shared/ui/Button2';
 import { useTranslations } from 'next-intl';
 import { Container } from '@/src/shared/ui/Container';
 import { Heading } from '@/src/shared/ui/Typography';

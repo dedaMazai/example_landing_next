@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
 import { ThemeProvider } from '@/src/app/providers/theme-provider';
 import { Header } from '@/src/widgets/Header';
-import { Footer } from '@/src/widgets/Footer';
+import { Footer } from '@/src/widgets/Footer2';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import {routing} from '@/i18n/routing';

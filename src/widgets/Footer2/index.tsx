@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Container } from '@/src/shared/ui/Container';
 import { VStack } from '@/src/shared/ui/Stack';
 import LogoBig from '@/src/shared/assets/icons/LogoBig.svg';
-import cls from './Footer.module.scss';
+import cls from './Footer2.module.scss';
 import { Icon } from '@/src/shared/ui/Icon';
 
 /**

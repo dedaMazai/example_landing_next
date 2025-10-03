@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { classNames } from '@/src/shared/lib/classNames/classNames';
-import cls from './Ecosystem.module.scss';
+import cls from './Ecosystem2.module.scss';
 
 interface EcosystemProps {
   className?: string;

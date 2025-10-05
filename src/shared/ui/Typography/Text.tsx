@@ -8,7 +8,7 @@ interface TextProps {
   size?: 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl';
   weight?: 'normal' | 'medium' | 'semibold' | 'bold';
   align?: 'left' | 'center' | 'right';
-  color?: 'primary' | 'secondary' | 'white' | 'muted';
+  color?: 'primary' | 'secondary' | 'white' | 'muted' | 'black';
   as?: 'p' | 'span' | 'div';
 }
 

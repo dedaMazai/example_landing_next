@@ -5,7 +5,7 @@ import cls from './Container.module.scss';
 interface ContainerProps {
   className?: string;
   children: ReactNode;
-  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'full';
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xxxl' | 'full';
   padding?: boolean;
 }
 
@@ -17,11 +17,11 @@ interface ContainerProps {
  * @param padding - добавлять ли боковые отступы
  */
 export const Container: FC<ContainerProps> = (props) => {
-  const { 
-    className, 
-    children, 
+  const {
+    className,
+    children,
     maxWidth = 'xl',
-    padding = true 
+    padding = true
   } = props;
 
   return (

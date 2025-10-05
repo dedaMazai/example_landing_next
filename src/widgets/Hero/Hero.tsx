@@ -1,0 +1,89 @@
+"use client";
+
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { Button } from '@/src/shared/ui/Button';
+import { useTranslations } from 'next-intl';
+import { Container } from '@/src/shared/ui/Container';
+import { Heading } from '@/src/shared/ui/Typography';
+import { Text } from '@/src/shared/ui/Typography';
+import { Section } from '@/src/shared/ui/Section';
+import { HStack } from '@/src/shared/ui/Stack';
+import cls from './Hero.module.scss';
+
+/**
+ * Hero - главная секция лендинга с основным заголовком и CTA кнопками
+ */
+export function Hero() {
+  const t = useTranslations('hero');
+
+  return (
+    <Section id="home" className={cls.hero} padding="none">
+      <motion.div
+        className={cls.mockup}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.6 }}
+      >
+        <Image
+          src="/images/mockups/hero-laptop.png"
+          alt={t('mockup.alt')}
+          width={1200}
+          height={800}
+          className={cls.laptopImage}
+          priority
+        />
+      </motion.div>
+
+      <Container maxWidth="xxxl" padding={false} className={cls.heroContainer}>
+        <div className={cls.heroContent}>
+          <motion.div
+            className={cls.content}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <Heading level={1} color="primary" className={cls.title}>
+              {t('title')}
+            </Heading>
+
+            <Text size="lg" color="primary" className={cls.description}>
+              {t('description')}
+            </Text>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              <HStack gap="24" className={cls.actions}>
+                <Button
+                  as="link"
+                  href="#contact"
+                  variant="filled"
+                  size='xl'
+                  strong
+                  className={cls.button}
+                >
+                  {t('cta.primary')}
+                </Button>
+
+                <Button
+                  as="link"
+                  href='https://pdp.pioneer.ru'
+                  target='_blank'
+                  variant="outline"
+                  size='xl'
+                  strong
+                  className={cls.button}
+                >
+                  {t('cta.secondary')}
+                </Button>
+              </HStack>
+            </motion.div>
+          </motion.div>
+        </div>
+      </Container>
+    </Section>
+  );
+}

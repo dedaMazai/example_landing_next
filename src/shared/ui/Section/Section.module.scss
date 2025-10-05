@@ -8,11 +8,11 @@
 
 // Background variants
 .bg-dark {
-  background: #000000;
+  background: $background-color;
 }
 
 .bg-darker {
-  background: linear-gradient(180deg, #000000 0%, rgba(10, 10, 10, 1) 100%);
+  background: linear-gradient(180deg, #000000 0%, #121314 100%);
 }
 
 .bg-gradient {
@@ -21,6 +21,10 @@
 
 .bg-transparent {
   background: transparent;
+}
+
+.bg-white {
+  background: #ffffff;
 }
 
 // Padding variants

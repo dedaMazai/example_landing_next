@@ -5,7 +5,7 @@ import cls from './Section.module.scss';
 interface SectionProps {
   className?: string;
   children: ReactNode;
-  background?: 'dark' | 'darker' | 'gradient' | 'transparent';
+  background?: 'dark' | 'darker' | 'gradient' | 'transparent' | 'white';
   padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
   id?: string;
 }

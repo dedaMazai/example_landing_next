@@ -1,0 +1,120 @@
+---
+description: "TypeScript правила и типизация по сложности"
+globs: ["src/**/*.ts", "src/**/*.tsx"]
+alwaysApply: true
+priority: "medium"
+context: "typescript-typing"
+---
+
+# 📝 TypeScript правила и типизация
+
+## 🔧 Общие принципы
+
+### 🔒 Строгая типизация
+- Используйте строгую конфигурацию TypeScript
+- Определяйте интерфейсы для всех пропсов и структур данных
+- Используйте enums для констант (роли, статусы)
+- Используйте utility types (Partial, Pick, Omit)
+- Избегайте `any` - используйте `unknown` или правильную типизацию
+
+## ⚙️ Типизация компонентов
+
+### 📋 Интерфейсы пропсов
+```typescript
+interface ComponentNameProps {
+  className?: string;
+  title: string;
+  isActive?: boolean;
+  onClick?: (event: MouseEvent) => void;
+  children?: ReactNode;
+}
+
+const ComponentName: FC<ComponentNameProps> = (props) => {
+  // реализация
+};
+```
+
+### 🪝 Типизация хуков
+```typescript
+interface UseCustomHookReturn {
+  data: SomeData | null;
+  loading: boolean;
+  error: string | null;
+}
+
+const useCustomHook = (): UseCustomHookReturn => {
+  // реализация
+};
+```
+
+## Enums и константы
+
+### Использование enums
+```typescript
+enum UserRole {
+  ADMIN = 'admin',
+  USER = 'user',
+  MODERATOR = 'moderator'
+}
+
+enum LoadingStatus {
+  IDLE = 'idle',
+  PENDING = 'pending',
+  FULFILLED = 'fulfilled',
+  REJECTED = 'rejected'
+}
+```
+
+## Utility Types
+
+### Часто используемые utility types
+```typescript
+// Partial - делает все поля опциональными
+type PartialUser = Partial<UserInfo>;
+
+// Pick - выбирает определенные поля
+type UserPreview = Pick<UserInfo, 'id' | 'name'>;
+
+// Omit - исключает определенные поля
+type CreateUserData = Omit<UserInfo, 'id'>;
+
+// Record - создает объект с определенными ключами и типом значений
+type UserRolePermissions = Record<UserRole, string[]>;
+```
+
+## Дженерики
+
+### Создание переиспользуемых типов
+```typescript
+interface ApiResponse<T> {
+  data: T;
+  success: boolean;
+  message?: string;
+}
+
+interface PaginatedResponse<T> extends ApiResponse<T[]> {
+  total: number;
+  page: number;
+  pageSize: number;
+}
+
+// Использование
+type UsersResponse = PaginatedResponse<UserInfo>;
+type UserResponse = ApiResponse<UserInfo>;
+```
+
+## ✅ Лучшие практики
+
+### 💯 Что делать:
+- Используйте строгие типы везде, где возможно
+- Создавайте переиспользуемые интерфейсы
+- Используйте union types для ограниченных значений
+- Документируйте сложные типы комментариями
+- Используйте const assertions для неизменяемых данных
+
+### ❌ Чего избегать:
+- Не используйте `any` без крайней необходимости
+- Не игнорируйте ошибки TypeScript
+- Не создавайте слишком сложные типы без необходимости
+- Не дублируйте типы - выносите в shared
+- Не используйте `@ts-ignore` без комментария с объяснением

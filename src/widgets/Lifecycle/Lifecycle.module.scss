@@ -1,0 +1,227 @@
+.lifecycle {
+  position: relative;
+  overflow: hidden;
+  min-height: 1080px;
+}
+
+.container {
+  position: relative;
+  z-index: 3;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1740px;
+  width: 100%;
+  padding-top: 70px;
+}
+
+.title {
+  margin-bottom: 42px;
+  text-transform: none;
+  width: 100%;
+  max-width: 1740px;
+}
+
+.imageContainer {
+  width: 100%;
+  max-width: 1623px;
+  height: 600px;
+  margin-bottom: 42px;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 280px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &::before {
+    top: 0;
+    background: linear-gradient(to bottom, $background-color 0%, transparent 100%);
+  }
+
+  &::after {
+    bottom: 0;
+    background: linear-gradient(to top, $background-color 0%, transparent 100%);
+  }
+
+
+  @media (max-width: $breakpoint-lg) {
+    height: 450px;
+    margin-bottom: $spacing-8;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    height: 300px;
+    margin-bottom: $spacing-6;
+
+    &::before,
+    &::after {
+      height: 600px;
+    }
+  }
+}
+
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: right;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+// Горизонтальная линия с этапами и индикатором
+.stagesLine {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+  width: 100%;
+  max-width: 1740px;
+  margin-bottom: 76px;
+}
+
+.startLabel,
+.endLabel {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.lineContainer {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 63px;
+  min-width: 0;
+
+  @media (max-width: $breakpoint-md) {
+    padding: 0 $spacing-8;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 $spacing-4;
+  }
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background: rgba(250, 250, 250, 0.3);
+  position: relative;
+}
+
+.indicator {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 126px;
+  height: 8px;
+  background: $primary-color;
+  border-radius: $border-radius-full;
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+// Обычные кнопки-карточки features
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-6;
+  width: 100%;
+  max-width: 1740px;
+}
+
+.feature {
+  position: relative;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: $spacing-6;
+  cursor: pointer;
+  transition: $transition-slow;
+  border-radius: $border-radius-lg;
+  text-align: left;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  &.active {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.featureLabel {
+  white-space: pre-wrap;
+}
+
+@media (max-width: $breakpoint-lg) {
+  .title {
+    margin-bottom: $spacing-10;
+  }
+
+  .stagesLine {
+    margin-bottom: $spacing-8;
+  }
+
+  .indicator {
+    width: 80px;
+  }
+
+  .features {
+    gap: $spacing-4;
+  }
+
+  .featureLabel {
+    font-size: $font-size-2xl;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .lifecycle {
+    min-height: 500px;
+  }
+
+  .title {
+    margin-bottom: $spacing-8;
+  }
+
+  .stagesLine {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-3;
+    margin-bottom: $spacing-8;
+  }
+
+  .lineContainer {
+    width: 100%;
+  }
+
+  .indicator {
+    width: 60px;
+    height: 6px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: $spacing-3;
+  }
+
+  .feature {
+    padding: $spacing-5;
+  }
+}
+

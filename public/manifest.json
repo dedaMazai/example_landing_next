@@ -1,0 +1,63 @@
+{
+  "name": "Pioneer Digital Platform",
+  "short_name": "PDP",
+  "description": "Professional digital platform for comprehensive automation of real estate development and construction companies",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "categories": ["business", "productivity", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/mockups/hero-laptop.png",
+      "sizes": "1200x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Pioneer Digital Platform Dashboard"
+    },
+    {
+      "src": "/images/mockups/mobile-app.png",
+      "sizes": "400x800", 
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile Application"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Contact Us",
+      "short_name": "Contact",
+      "description": "Get in touch with our team",
+      "url": "/#contact",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Start Using",
+      "short_name": "Login", 
+      "description": "Access the platform",
+      "url": "https://pdp.pioneer.ru",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

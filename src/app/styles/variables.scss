@@ -1,5 +1,5 @@
 // Colors
-$background-color: #000000;
+$background-color: #121314;
 
 $primary-color: #FAFAFA;
 $secondary-color: #0D0D0E;
@@ -72,7 +72,7 @@ $transition-slow: all 0.3s ease-in-out;
 $transition-fast: all 0.1s ease-in-out;
 
 // Breakpoints
-$breakpoint-sm: 640px;
+$breakpoint-sm: 540px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 1024px;
 $breakpoint-xl: 1280px;
@@ -93,6 +93,6 @@ $container-max-md: 768px;
 $container-max-lg: 1024px;
 $container-max-xl: 1280px;
 $container-max-2xl: 1536px;
-$container-max-3xl: 1740px;
+$container-max-3xl: 1920px;
 
 $border-color: black;

@@ -9,7 +9,7 @@ interface HeadingProps {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl';
   weight?: 'normal' | 'medium' | 'semibold' | 'bold';
   align?: 'left' | 'center' | 'right';
-  color?: 'primary' | 'secondary' | 'white';
+  color?: 'primary' | 'secondary' | 'white' | 'black';
 }
 
 /**

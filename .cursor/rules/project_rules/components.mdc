@@ -1,0 +1,483 @@
+# 📋 Паттерны React компонентов для лендингов
+
+## 🏗️ Структура компонента Widget (секция лендинга)
+
+### 📋 Стандартный паттерн секции
+```typescript
+"use client";
+
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import { Section } from '@/src/shared/ui/Section';
+import { Container } from '@/src/shared/ui/Container';
+import { Heading, Text } from '@/src/shared/ui/Typography';
+import cls from './SectionName.module.scss';
+
+/**
+ * SectionName - описание назначения секции
+ */
+export function SectionName() {
+  const t = useTranslations('sectionName');
+
+  return (
+    <Section id="section-name" background="dark" padding="lg">
+      <Container maxWidth="xl">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className={cls.content}
+        >
+          <Heading level={2} align="center">
+            {t('title')}
+          </Heading>
+          <Text align="center" size="lg">
+            {t('description')}
+          </Text>
+        </motion.div>
+      </Container>
+    </Section>
+  );
+}
+```
+
+### 🎯 Ключевые принципы widgets
+- **"use client"** директива для интерактивности
+- **Framer Motion** для анимаций появления
+- **Section wrapper** для консистентного оформления
+- **Container** для ограничения ширины контента
+- **ID секции** для якорных ссылок из навигации
+
+---
+
+## 🧩 Компоненты Shared UI
+
+### 🔘 Button - универсальная кнопка
+```typescript
+import { Button } from '@/src/shared/ui/Button';
+
+// Вариант 1: Обычная кнопка
+<Button 
+  variant="filled" 
+  size="xl" 
+  strong
+  onClick={handleClick}
+>
+  {t('button')}
+</Button>
+
+// Вариант 2: Кнопка-ссылка (якорная навигация)
+<Button 
+  as="link" 
+  href="#contact" 
+  variant="outline" 
+  size="l"
+>
+  {t('contact')}
+</Button>
+
+// Вариант 3: Внешняя ссылка
+<Button 
+  as="link" 
+  href="https://example.com" 
+  target="_blank"
+  variant="filled"
+  color="secondary"
+>
+  {t('openApp')}
+</Button>
+```
+
+**Доступные пропсы:**
+- `variant`: `'clear' | 'outline' | 'filled'`
+- `color`: `'normal' | 'success' | 'error' | 'secondary'`
+- `size`: `'s' | 'm' | 'l' | 'xl'`
+- `as`: `'button' | 'link'`
+
+---
+
+### 📦 Section - обертка для секций
+```typescript
+import { Section } from '@/src/shared/ui/Section';
+
+<Section 
+  id="unique-id"           // Для якорных ссылок
+  background="dark"        // 'dark' | 'darker' | 'gradient' | 'transparent' | 'white'
+  padding="lg"             // 'none' | 'sm' | 'md' | 'lg' | 'xl'
+  className={cls.custom}
+>
+  {children}
+</Section>
+```
+
+---
+
+### 📐 Container - ограничитель ширины
+```typescript
+import { Container } from '@/src/shared/ui/Container';
+
+<Container 
+  maxWidth="xl"        // 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
+  padding={true}       // Добавить горизонтальные отступы
+  className={cls.custom}
+>
+  {content}
+</Container>
+```
+
+---
+
+### 📝 Typography - текстовые компоненты
+```typescript
+import { Heading, Text } from '@/src/shared/ui/Typography';
+
+// Заголовки
+<Heading 
+  level={1}              // 1-6 (h1-h6)
+  align="center"         // 'left' | 'center' | 'right'
+  color="primary"        // 'primary' | 'secondary' | 'accent'
+  className={cls.title}
+>
+  {t('title')}
+</Heading>
+
+// Параграфы
+<Text 
+  size="lg"              // 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  align="center"
+  color="secondary"
+>
+  {t('description')}
+</Text>
+```
+
+---
+
+### 📚 Stack - компоновка элементов
+```typescript
+import { HStack, VStack } from '@/src/shared/ui/Stack';
+
+// Горизонтальный стек (flexbox row)
+<HStack gap="16" align="center" justify="between">
+  <Button>Left</Button>
+  <Button>Right</Button>
+</HStack>
+
+// Вертикальный стек (flexbox column)
+<VStack gap="24" align="stretch">
+  <Heading level={2}>{t('title')}</Heading>
+  <Text>{t('description')}</Text>
+</VStack>
+```
+
+**Доступные пропсы:**
+- `gap`: `'4' | '8' | '12' | '16' | '24' | '32' | '48'` (в пикселях)
+- `align`: `'start' | 'center' | 'end' | 'stretch'`
+- `justify`: `'start' | 'center' | 'end' | 'between' | 'around'`
+
+---
+
+### 🃏 Card - карточка контента
+```typescript
+import { Card } from '@/src/shared/ui/Card';
+
+<Card 
+  variant="elevated"     // 'flat' | 'elevated' | 'outlined'
+  padding="lg"           // 'none' | 'sm' | 'md' | 'lg'
+  hoverable              // Эффект hover
+  className={cls.card}
+>
+  <Heading level={3}>{t('cardTitle')}</Heading>
+  <Text>{t('cardDescription')}</Text>
+</Card>
+```
+
+---
+
+### 🎨 Icon - SVG иконки
+```typescript
+import { Icon } from '@/src/shared/ui/Icon';
+import ArrowSvg from '@/src/shared/assets/icons/Arrow.svg';
+
+<Icon 
+  Svg={ArrowSvg} 
+  width={24} 
+  height={24} 
+  color="#FAFAFA"  // Опционально
+/>
+```
+
+---
+
+## 🎬 Анимации Framer Motion
+
+### 📋 Базовые паттерны анимаций
+
+#### 🎯 Появление секции снизу
+```typescript
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6 }}
+>
+  {content}
+</motion.div>
+```
+
+#### ⬅️ Появление слева
+```typescript
+<motion.div
+  initial={{ opacity: 0, x: -50 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.7 }}
+>
+  {content}
+</motion.div>
+```
+
+#### 🔍 Масштабирование
+```typescript
+<motion.div
+  initial={{ opacity: 0, scale: 0.8 }}
+  whileInView={{ opacity: 1, scale: 1 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.5 }}
+>
+  {content}
+</motion.div>
+```
+
+#### 📊 Последовательное появление элементов
+```typescript
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+<motion.div
+  variants={containerVariants}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+>
+  {items.map(item => (
+    <motion.div key={item.id} variants={itemVariants}>
+      {item.content}
+    </motion.div>
+  ))}
+</motion.div>
+```
+
+---
+
+## 📱 Изображения Next.js
+
+### 🖼️ Оптимизация изображений
+```typescript
+import Image from 'next/image';
+
+// Hero изображение (приоритет загрузки)
+<Image
+  src="/images/mockups/hero-laptop.png"
+  alt={t('hero.mockup.alt')}
+  width={1200}
+  height={800}
+  priority              // Загружать первым
+  className={cls.image}
+/>
+
+// Обычное изображение
+<Image
+  src="/images/features/feature-1.png"
+  alt={t('features.feature1.alt')}
+  width={600}
+  height={400}
+  loading="lazy"        // Ленивая загрузка
+  className={cls.featureImage}
+/>
+
+// Фоновое изображение через fill
+<div className={cls.imageContainer}>
+  <Image
+    src="/images/backgrounds/pattern.png"
+    alt=""
+    fill
+    style={{ objectFit: 'cover' }}
+    quality={75}
+  />
+</div>
+```
+
+---
+
+## 📋 Формы обратной связи
+
+### 📝 Паттерн контактной формы
+```typescript
+"use client";
+
+import { useState } from 'react';
+import { FormInput } from '@/src/shared/ui/FormInput';
+import { Button } from '@/src/shared/ui/Button';
+import { useTranslations } from 'next-intl';
+
+export function ContactForm() {
+  const t = useTranslations('contact.form');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Отправка формы
+    try {
+      // await sendForm(formData);
+      console.log('Form submitted:', formData);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className={cls.form}>
+      <FormInput
+        label={t('name.label')}
+        placeholder={t('name.placeholder')}
+        value={formData.name}
+        onChange={(e) => setFormData({...formData, name: e.target.value})}
+        required
+      />
+      
+      <FormInput
+        type="email"
+        label={t('email.label')}
+        placeholder={t('email.placeholder')}
+        value={formData.email}
+        onChange={(e) => setFormData({...formData, email: e.target.value})}
+        required
+      />
+      
+      <Button 
+        type="submit" 
+        variant="filled" 
+        size="xl"
+        disabled={isSubmitting}
+        fullWidth
+      >
+        {isSubmitting ? t('sending') : t('submit')}
+      </Button>
+    </form>
+  );
+}
+```
+
+---
+
+## 🪝 Кастомные хуки
+
+### 🔄 useIntersectionObserver - отслеживание видимости
+```typescript
+import { useInView } from 'react-intersection-observer';
+
+export function AnimatedSection() {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1
+  });
+
+  return (
+    <div ref={ref} className={inView ? cls.visible : cls.hidden}>
+      {content}
+    </div>
+  );
+}
+```
+
+---
+
+## 🎯 Правила именования
+
+### 📝 Конвенции
+- **Widgets**: PascalCase, названия-существительные (`Hero`, `Features`, `Contact`)
+- **UI компоненты**: PascalCase (`Button`, `Card`, `Section`)
+- **Утилиты**: camelCase (`classNames`, `getBaseUrl`)
+- **Хуки**: camelCase с префиксом `use` (`useTranslations`, `useInView`)
+- **Файлы стилей**: `ComponentName.module.scss`
+- **Barrel exports**: `index.ts` в каждой папке компонента
+
+---
+
+## ✅ Чек-лист качества компонента
+
+- [ ] TypeScript интерфейс для всех пропсов
+- [ ] JSDoc комментарий с описанием
+- [ ] CSS модуль с изолированными стилями
+- [ ] Поддержка i18n для всего текста
+- [ ] Анимации Framer Motion (если нужны)
+- [ ] Responsive дизайн (mobile-first)
+- [ ] Оптимизация изображений (Next.js Image)
+- [ ] Accessibility (alt текст, ARIA labels)
+- [ ] Barrel export через `index.ts`
+
+---
+
+## ❌ Антипаттерны
+
+### 🚫 Что НЕ делать
+```typescript
+// ❌ ПЛОХО - хардкод текста
+<h1>Welcome to our site</h1>
+
+// ❌ ПЛОХО - inline стили
+<div style={{ padding: '20px' }}>
+
+// ❌ ПЛОХО - any типы
+const data: any = props.data;
+
+// ❌ ПЛОХО - анимации без viewport once
+<motion.div whileInView={{ opacity: 1 }} />
+
+// ❌ ПЛОХО - img вместо Next.js Image
+<img src="/image.jpg" />
+```
+
+### ✅ Правильные альтернативы
+```typescript
+// ✅ ХОРОШО - переводы
+<Heading level={1}>{t('title')}</Heading>
+
+// ✅ ХОРОШО - CSS модули
+<div className={cls.container}>
+
+// ✅ ХОРОШО - строгие типы
+const data: FeatureData = props.data;
+
+// ✅ ХОРОШО - оптимизированные анимации
+<motion.div 
+  whileInView={{ opacity: 1 }} 
+  viewport={{ once: true }}
+/>
+
+// ✅ ХОРОШО - оптимизированные изображения
+<Image src="/image.jpg" width={800} height={600} alt="Description" />
+```

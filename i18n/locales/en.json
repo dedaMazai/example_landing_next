@@ -1,14 +1,40 @@
 {
   "metadata": {
-    "title": "Pioneer Digital Platform | Innovative Solutions for Modern Businesses",
-    "description": "Pioneer Digital Platform offers cutting-edge services and solutions to help businesses innovate, grow, and succeed in today's competitive landscape.",
-    "keywords": "Pioneer Digital Platform, business solutions, innovation, technology, consulting",
-    "author": "Pioneer Digital Platform Team"
+    "title": "Pioneer Digital Platform | Real Estate Development & Construction Management Software",
+    "description": "Professional digital platform for comprehensive automation of real estate development and construction companies. Manage the entire lifecycle from construction to operation with integrated tools for project control, sales, and property management.",
+    "keywords": "real estate development software, construction management platform, property development automation, real estate lifecycle management, construction control system, developer tools, property management software, real estate project management, construction automation, building management system, real estate CRM, property development platform, construction project software, real estate operations management, digital construction platform",
+    "author": "Pioneer Digital Platform Team",
+    "openGraph": {
+      "title": "Pioneer Digital Platform - Complete Real Estate Development Solution",
+      "description": "Automate your real estate development business with our comprehensive platform. From construction control to property management - all in one system.",
+      "siteName": "Pioneer Digital Platform",
+      "type": "website"
+    },
+    "twitter": {
+      "title": "Pioneer Digital Platform - Real Estate Development Software",
+      "description": "Professional platform for real estate developers and construction companies. Manage projects, sales, and operations efficiently.",
+      "card": "summary_large_image"
+    },
+    "structuredData": {
+      "name": "Pioneer Digital Platform",
+      "authorName": "Pioneer Digital Platform Team",
+      "offerCategory": "Real Estate Development Software",
+      "featureList": [
+        "Construction Control",
+        "Real Estate Lifecycle Management",
+        "Property Management",
+        "Sales and Transfer Management",
+        "Mobile Application for Property Owners",
+        "Document Management",
+        "Analytics and Reporting"
+      ]
+    }
   },
   "nav": {
     "home": "Home",
     "about": "About",
     "whatWeDo": "What We Do",
+    "language": "Change Language",
     "services": "Services",
     "submitRequest": "Submit Request",
     "testimonials": "Testimonials",
@@ -224,16 +250,12 @@
     "links": {
       "about": "About",
       "services": "Services",
-      "team": "Team",
       "careers": "Careers",
       "blog": "Blog",
-      "caseStudies": "Case Studies",
       "testimonials": "Testimonials",
       "faq": "FAQ",
-      "terms": "Terms of Service",
       "privacy": "Privacy Policy",
-      "cookies": "Cookie Policy",
-      "compliance": "Compliance"
+      "cookies": "Cookie Policy"
     },
     "copyright": "© {year} Pioneer Digital Platform. All rights reserved."
   },

@@ -1,0 +1,234 @@
+# 🚀 Next.js Landing Page - Правила разработки
+
+> **НАЗНАЧЕНИЕ**: Этот проект - шаблон для создания современных лендингов на Next.js 15.
+> Фокус на производительности, SEO, анимациях и быстром прототипировании.
+
+## 📋 Быстрый чек-лист для новых лендингов
+
+### ✅ Обязательные требования (MUST)
+1. **Структура**: Widgets для секций, shared для UI → [структура ниже](#структура-лендинга)
+2. **Типизация**: TypeScript интерфейсы для всех компонентов
+3. **Стили**: CSS модули (`.module.scss`) + глобальные переменные
+4. **i18n**: Поддержка минимум 2 языков (`next-intl`)
+5. **Анимации**: Framer Motion для плавных появлений секций
+6. **Изображения**: Next.js Image с оптимизацией и `priority` для hero
+
+### 🔧 Рекомендации (SHOULD)
+7. **SEO**: Метатеги, OpenGraph, Schema.org разметка
+8. **Responsive**: Mobile-first подход, адаптация от 320px
+9. **Производительность**: Lazy loading для секций ниже fold
+10. **Формы**: Валидация и обработка контактных форм
+11. **CTA**: Четкие call-to-action кнопки в каждой секции
+
+---
+
+## 🏗️ Структура лендинга
+
+### 📁 Типичная архитектура лендинга
+```
+src/
+├── widgets/          # Секции лендинга
+│   ├── Hero/        # Главная секция с заголовком
+│   ├── Features/    # Преимущества/возможности
+│   ├── About/       # О продукте/компании
+│   ├── Pricing/     # Тарифы (опционально)
+│   ├── Testimonials/# Отзывы клиентов
+│   ├── Contact/     # Форма обратной связи
+│   ├── Footer/      # Подвал с ссылками
+│   └── Header/      # Навигация и логотип
+├── shared/
+│   ├── ui/          # Переиспользуемые компоненты
+│   │   ├── Button/
+│   │   ├── Card/
+│   │   ├── Section/      # Wrapper для секций
+│   │   ├── Container/    # Ограничитель ширины
+│   │   └── Typography/   # Heading, Text
+│   ├── assets/      # SVG иконки, изображения
+│   └── lib/         # Утилиты (classNames)
+└── views/
+    └── MainPage/    # Композиция всех widgets
+```
+
+### 🎯 Ключевые принципы организации
+- **Widgets** = независимые секции лендинга (можно легко добавлять/удалять)
+- **Shared/UI** = библиотека компонентов для быстрого создания новых секций
+- **Views** = композиция widgets в страницы
+- **Каждый widget** имеет свой SCSS модуль и типы
+
+---
+
+## 🎨 Стилизация лендингов
+
+### 📐 Дизайн-система
+- **Переменные**: `src/app/styles/variables.scss` - цвета, размеры, breakpoints
+- **8px Grid**: Все отступы кратны 8px для визуальной гармонии
+- **CSS модули**: Изоляция стилей каждого компонента
+- **Темы**: Поддержка светлой/темной темы через CSS переменные
+
+### 🎨 Цветовая палитра
+```scss
+$background-color: #121314;  // Темный фон
+$primary-color: #FAFAFA;     // Основной текст
+$accent-color: #FBBF24;      // Акцентный цвет (CTA)
+```
+
+### 📱 Breakpoints
+```scss
+$breakpoint-sm: 540px;   // Мобильный
+$breakpoint-md: 768px;   // Планшет
+$breakpoint-lg: 1024px;  // Ноутбук
+$breakpoint-xl: 1280px;  // Десктоп
+$breakpoint-2xl: 1536px; // Широкий экран
+```
+
+---
+
+## ⚡ Производительность лендингов
+
+### 🚀 Оптимизация загрузки
+1. **Hero section** - загружается первым, изображения с `priority`
+2. **Секции ниже fold** - lazy loading компонентов
+3. **Изображения** - Next.js Image с автооптимизацией
+4. **Анимации** - только на viewport intersection
+
+### 🎬 Анимации Framer Motion
+```typescript
+// Стандартный паттерн появления секции
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.6 }}
+>
+```
+
+---
+
+## 🌐 Интернационализация
+
+### 📝 Структура переводов
+```
+i18n/
+├── locales/
+│   ├── en.json      # Английский
+│   └── ru.json      # Русский
+├── navigation.ts    # Конфигурация роутинга
+└── routing.ts       # next-intl setup
+```
+
+### 🔧 Использование в компонентах
+```typescript
+import { useTranslations } from 'next-intl';
+
+export function Hero() {
+  const t = useTranslations('hero');
+  
+  return <h1>{t('title')}</h1>;
+}
+```
+
+### 🗂️ Организация переводов
+```json
+{
+  "hero": {
+    "title": "Заголовок",
+    "description": "Описание",
+    "cta": {
+      "primary": "Основная кнопка",
+      "secondary": "Вторая кнопка"
+    }
+  },
+  "features": { ... }
+}
+```
+
+---
+
+## 🧩 Создание нового лендинга
+
+### 📋 Пошаговый план
+1. **Определите секции** (Hero, Features, About, Contact, Footer)
+2. **Создайте widgets** для каждой секции
+3. **Настройте переводы** для всех языков
+4. **Добавьте изображения** в `public/images/`
+5. **Соберите в MainPage** импортируя widgets
+6. **Настройте навигацию** в Header
+7. **Добавьте метатеги** для SEO
+8. **Протестируйте** на разных устройствах
+
+### 🎯 Шаблон нового виджета
+```typescript
+// src/widgets/NewSection/NewSection.tsx
+"use client";
+
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import { Section } from '@/src/shared/ui/Section';
+import { Container } from '@/src/shared/ui/Container';
+import { Heading, Text } from '@/src/shared/ui/Typography';
+import cls from './NewSection.module.scss';
+
+export function NewSection() {
+  const t = useTranslations('newSection');
+
+  return (
+    <Section id="new-section" background="dark" padding="lg">
+      <Container maxWidth="xl">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <Heading level={2}>{t('title')}</Heading>
+          <Text>{t('description')}</Text>
+        </motion.div>
+      </Container>
+    </Section>
+  );
+}
+```
+
+---
+
+## ⚠️ Критические ограничения
+
+### ❌ НИКОГДА не делайте
+- Inline стили вместо CSS модулей
+- Хардкод текста без i18n
+- Тяжелые изображения без оптимизации Next.js Image
+- Анимации без `viewport={{ once: true }}` (влияет на производительность)
+- `any` типы в TypeScript
+- Секции без семантических HTML тегов (`<section>`, `<article>`)
+
+### ✅ ВСЕГДА делайте
+- Mobile-first responsive дизайн
+- Альтернативный текст для всех изображений
+- Якорные ссылки для навигации (`id` на секциях)
+- Обработку форм с валидацией
+- Проверку Core Web Vitals
+- Тестирование на реальных устройствах
+
+---
+
+## 📊 Чек-лист перед запуском
+
+- [ ] Все тексты переведены на все языки
+- [ ] Изображения оптимизированы и lazy-loaded
+- [ ] Формы работают и валидируются
+- [ ] Мета-теги и OpenGraph настроены
+- [ ] Favicon и PWA иконки сгенерированы
+- [ ] Responsive дизайн проверен (320px-2560px)
+- [ ] Анимации плавные на всех устройствах
+- [ ] Lighthouse Score > 90 (Performance)
+- [ ] Нет ошибок в консоли
+- [ ] CTA кнопки ведут на правильные ссылки
+
+---
+
+## 📚 Связанные документы
+
+- [📋 Паттерны компонентов](./components.mdc) - React компоненты и хуки
+- [📝 TypeScript](./typescript.mdc) - Типизация
+- [🎨 Стилизация](./styling.mdc) - CSS модули и SCSS
+- [⚡ Производительность](./performance.mdc) - Оптимизации

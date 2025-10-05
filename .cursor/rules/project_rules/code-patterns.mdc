@@ -1,0 +1,135 @@
+---
+description: "Паттерны кода и лучшие практики для React компонентов"
+globs: ["src/**/*.tsx", "src/**/*.ts"]
+alwaysApply: true
+priority: "high"
+context: "development-patterns"
+---
+
+# 🔧 Паттерны кода и лучшие практики
+
+## 🏗️ Структура React компонентов
+
+### 📋 Стандартный паттерн компонента
+
+```typescript
+// ✅ Правильная структура компонента
+import { FC } from 'react';
+import { classNames } from '@/src/shared/lib/classNames/classNames';
+import { useTranslations } from 'next-intl';
+
+import cls from './ComponentName.module.scss';
+
+interface ComponentNameProps {
+  className?: string;
+  title: string;
+  isActive?: boolean;
+  onClick?: () => void;
+}
+
+/**
+ * ComponentName - описание назначения компонента
+ * @param className - дополнительные CSS классы
+ * @param title - заголовок компонента
+ * @param isActive - активное состояние
+ * @param onClick - обработчик клика
+ */
+export const ComponentName: FC<ComponentNameProps> = (props) => {
+  const { className, title, isActive, onClick } = props;
+  const { t } = useTranslation();
+
+  return (
+    <div
+      className={classNames(cls.ComponentName, [className], {
+        [cls.active]: isActive,
+      })}
+      onClick={onClick}
+    >
+      <h2 className={cls.title}>{t('Заголовок')}</h2>
+    </div>
+  );
+};
+```
+
+### 🎯 Ключевые принципы:
+- **Деструктуризация пропсов** в начале компонента
+- **Типизация всех пропсов** через интерфейс
+- **JSDoc комментарии** для сложных компонентов
+- **classNames утилита** для условных стилей
+- **useTranslation** для всего пользовательского текста
+
+### 📋 Правила импортов:
+- **Абсолютные пути** с `@/` для всех src импортов
+- **Barrel exports** (`index.ts`) для чистоты импортов
+- **Named exports** предпочтительнее default exports
+- **Группировка** по типам и слоям FSD
+
+## 🌐 Интернационализация (i18n)
+
+### 🔧 Базовое использование:
+
+```typescript
+// ✅ Правильное использование переводов
+
+import { useTranslations } from 'next-intl';
+
+const MyComponent: FC = () => {
+  const { t } = useTranslations();
+
+  return (
+    <div>
+      <h1>{t('Заголовок')}</h1>
+      <p>{t('Описание', { count: 5 })}</p>
+      <Button>{t('Сохранить')}</Button>
+    </div>
+  );
+};
+```
+
+### 🎯 Лучшие практики i18n:
+- **Весь пользовательский текст** должен переводиться
+- **Интерполация** для динамических значений
+- **Плюрализация** для счетчиков
+
+
+## ✅ Качество кода
+
+### 📋 Чек-лист качества:
+- ✅ **ESLint** без ошибок (@krap/eslint-config)
+- ✅ **TypeScript** без any типов
+- ✅ **Stylelint** для SCSS валидации
+- ✅ **JSDoc** для сложных функций
+- ✅ **Single Responsibility** для компонентов
+
+## ❌ Антипаттерны (что НЕ делать)
+
+### 🚫 Критические ошибки:
+```typescript
+// ❌ ПЛОХО - any типы
+const data: any = response;
+
+// ❌ ПЛОХО - хардкод строк
+<button>Сохранить</button>
+
+// ❌ ПЛОХО - нарушение FSD границ
+import { UserAPI } from '../../../entities/User/api';
+
+// ❌ ПЛОХО - мутация состояния
+state.users.push(newUser);
+```
+
+### ✅ Правильные альтернативы:
+```typescript
+// ✅ ХОРОШО - строгие типы
+const data: UserResponse = response;
+
+// ✅ ХОРОШО - переводы
+<button>{t('Сохранить')}</button>
+```
+
+## 📋 Связанные документы
+
+- [📁 Структура папок](./folder-structure.mdc) - FSD организация
+- [🎨 Стилизация](./styling.mdc) - CSS модули и компоненты
+- [📝 TypeScript](./typescript.mdc) - Типизация и интерфейсы
+- [⚡ Производительность](./performance.mdc) - React оптимизации

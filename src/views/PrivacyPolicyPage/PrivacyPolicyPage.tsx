@@ -48,7 +48,7 @@ export default function PrivacyPolicyPage() {
         >
           <VStack gap="32" className={cls.content}>
             <div className={cls.header}>
-              <Heading level={1} className={cls.title}>
+              <Heading level={1} size="4xl" color="primary" className={cls.title}>
                 {t('title')}
               </Heading>
               
@@ -67,23 +67,23 @@ export default function PrivacyPolicyPage() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
                   <VStack gap="16">
-                    <Heading level={2} className={cls.sectionTitle}>
+                    <Heading level={2} size="xl" weight="semibold" color="primary" className={cls.sectionTitle}>
                       {t(`sections.${section}.title`)}
                     </Heading>
                     
-                    <Text size="base" className={cls.sectionContent}>
+                    <Text size="base" color="secondary" className={cls.sectionContent}>
                       {t(`sections.${section}.content`)}
                     </Text>
 
                     {section === 'contact' && (
                       <VStack gap="8" className={cls.contactInfo}>
-                        <Text size="base" weight="medium">
+                        <Text size="base" weight="medium" color="primary">
                           {t('contactInfo.email')}
                         </Text>
-                        <Text size="base" weight="medium">
+                        <Text size="base" weight="medium" color="primary">
                           {t('contactInfo.phone')}
                         </Text>
-                        <Text size="base" weight="medium">
+                        <Text size="base" weight="medium" color="primary">
                           {t('contactInfo.address')}
                         </Text>
                       </VStack>

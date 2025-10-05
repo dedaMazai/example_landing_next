@@ -1,0 +1,434 @@
+
+.Button {
+  cursor: pointer;
+  color: $text-primary;
+  padding: $spacing-2 $spacing-4;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+      color: $accent-color;
+
+      .addonLeft svg, .addonRight svg {
+          color: $accent-color;
+      }
+  }
+}
+
+.withAddon {
+  padding: 0 $spacing-4;
+}
+
+.addonLeft, .addonRight, .prevIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prevIcon {
+  flex-shrink: 0;
+
+  div {
+    height: 100%;
+  }
+  
+  svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.addonRight svg, .addonLeft svg {
+  color: $text-primary;
+}
+
+// prevIcon размеры для обычных кнопок
+.s:not(.square) .prevIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: $spacing-2;
+}
+
+.m:not(.square) .prevIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: $spacing-3;
+}
+
+.l:not(.square) .prevIcon {
+  width: 28px;
+  height: 28px;
+  margin-right: $spacing-3;
+}
+
+.xl:not(.square) .prevIcon {
+  width: 32px;
+  height: 32px;
+  margin-right: $spacing-4;
+}
+
+// prevIcon размеры для квадратных кнопок (занимает всю кнопку)
+.square .prevIcon {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+
+  svg {
+    max-width: 70%;
+    max-height: 70%;
+  }
+}
+
+// Конкретные размеры для квадратных кнопок
+.square.s .prevIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.square.m .prevIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.square.l .prevIcon {
+  width: 28px;
+  height: 28px;
+}
+
+.square.xl .prevIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.clear {
+  padding: 24px;
+  border: none;
+  outline: none;
+  transition: $transition-base;
+  border-radius: 8px;
+  text-align: left;
+  width: 100%;
+  justify-content: flex-start;
+
+  // Default - normal variant
+  color: $text-primary;
+
+  // Color variants
+  &.normal {
+    background: rgba(255, 255, 255, 0.2);
+    color: $text-primary;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    &:active {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  &.secondary {
+    background: rgba(255, 255, 255, 0.09);
+    color: $text-primary;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.095);
+    }
+
+    &:active {
+      background: rgba(255, 255, 255, 0.10);
+    }
+  }
+
+  &.success {
+    background: rgba($success-color, 0.1);
+    color: $success-color;
+
+    &:hover {
+      background: rgba($success-color, 0.15);
+    }
+
+    &:active {
+      background: rgba($success-color, 0.2);
+    }
+  }
+
+  &.error {
+    background: rgba($error-color, 0.1);
+    color: $error-color;
+
+    &:hover {
+      background: rgba($error-color, 0.15);
+    }
+
+    &:active {
+      background: rgba($error-color, 0.2);
+    }
+  }
+}
+
+.filled {
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  transition: $transition-base;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // Default - normal variant
+  background: #FFFFFF;
+  color: #0B0B0B;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  // Color variants
+  &.normal {
+    background: #FFFFFF;
+    color: #0B0B0B;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    &:active {
+      background: rgba(255, 255, 255, 0.9);
+    }
+  }
+
+  &.secondary {
+    background: $secondary-color;
+    color: $text-primary;
+
+    &:hover {
+      background: rgba($secondary-color, 0.9);
+    }
+
+    &:active {
+      background: rgba($secondary-color, 0.8);
+    }
+  }
+
+  &.success {
+    background: $success-color;
+    color: #FFFFFF;
+
+    &:hover {
+      background: rgba($success-color, 0.9);
+    }
+
+    &:active {
+      background: rgba($success-color, 0.8);
+    }
+  }
+
+  &.error {
+    background: $error-color;
+    color: #FFFFFF;
+
+    &:hover {
+      background: rgba($error-color, 0.9);
+    }
+
+    &:active {
+      background: rgba($error-color, 0.8);
+    }
+  }
+}
+
+.outline {
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  transition: $transition-base;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+
+  // Default - normal variant
+  background: rgba(255, 255, 255, 0.03);
+  color: #FAFAFA;
+  // Используем box-shadow вместо border чтобы не влиять на размер
+  box-shadow: inset 0 0 0 1px transparent;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  // Color variants
+  &.normal {
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: inset 0 0 0 1px $primary-color;
+    color: $primary-color;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.07);
+      box-shadow: inset 0 0 0 1px $primary-color;
+    }
+
+    &:active {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  &.secondary {
+    background: rgba($secondary-color, 0.1);
+    box-shadow: inset 0 0 0 1px $secondary-color;
+    color: $secondary-color;
+
+    &:hover {
+      background: rgba($secondary-color, 0.2);
+    }
+
+    &:active {
+      background: rgba($secondary-color, 0.15);
+    }
+  }
+
+  &.success {
+    background: rgba($success-color, 0.1);
+    box-shadow: inset 0 0 0 1px $success-color;
+    color: $success-color;
+
+    &:hover {
+      background: rgba($success-color, 0.2);
+    }
+
+    &:active {
+      background: rgba($success-color, 0.15);
+    }
+  }
+
+  &.error {
+    background: rgba($error-color, 0.1);
+    box-shadow: inset 0 0 0 1px $error-color;
+    color: $error-color;
+
+    &:hover {
+      background: rgba($error-color, 0.2);
+    }
+
+    &:active {
+      background: rgba($error-color, 0.15);
+    }
+  }
+}
+
+.square {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  // Базовые размеры для всех квадратных кнопок
+  &.s {
+    width: 36px;
+    height: 36px;
+    padding: $spacing-2; // 8px
+    font-size: $font-size-xs;
+  }
+
+  &.m {
+    width: 44px;
+    height: 44px;
+    padding: $spacing-3; // 12px
+    font-size: $font-size-base;
+  }
+
+  &.l {
+    width: 52px;
+    height: 52px;
+    padding: $spacing-4; // 16px
+    font-size: $font-size-lg;
+  }
+
+  &.xl {
+    width: 60px;
+    height: 60px;
+    padding: $spacing-5; // 20px
+    font-size: $font-size-xl;
+  }
+}
+
+.s {
+  font-size: $font-size-xs;
+  line-height: $line-height-tight;
+  
+  &:not(.square) {
+    padding: $spacing-2 $spacing-4;
+  }
+}
+
+.m {
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+
+  &:not(.square) {
+    padding: $spacing-2 $spacing-4;
+  }
+}
+
+.l {
+  font-size: $font-size-lg;
+  line-height: $line-height-normal;
+
+  &:not(.square) {
+    padding: $spacing-4 $spacing-8;
+  }
+}
+
+.xl {
+  font-size: $font-size-xl;
+  line-height: $line-height-normal;
+  
+  &:not(.square) {
+    padding: $spacing-5 $spacing-10;
+  }
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.strong {
+  font-weight: $font-weight-bold;
+  
+  // Уменьшаем размер шрифта для визуального баланса с жирным начертанием
+  &.s {
+    font-size: 10px; // было 12px
+    letter-spacing: 0.01em;
+  }
+  
+  &.m {
+    font-size: 14px; // было 16px
+    letter-spacing: 0.01em;
+  }
+  
+  &.l {
+    font-size: 16px; // было 18px
+    letter-spacing: 0.01em;
+  }
+  
+  &.xl {
+    font-size: 18px; // было 20px
+    letter-spacing: 0.01em;
+  }
+}

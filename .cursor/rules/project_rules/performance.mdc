@@ -1,0 +1,158 @@
+---
+description: "Правила производительности с метриками и чек-листами"
+globs: ["src/**/*.tsx", "src/**/*.ts"]
+alwaysApply: true
+priority: "optional"
+context: "performance-optimization"
+---
+
+# ⚡ Производительность и оптимизация
+
+## ⚙️ React оптимизации
+
+### 🚀 Ленивая загрузка компонентов
+- Используйте `React.lazy` для code splitting на уровне страниц
+- Создавайте `.async.tsx` файлы для асинхронных компонентов
+
+```typescript
+// ComponentName.async.tsx
+import { lazy } from 'react';
+
+export const ComponentNameAsync = lazy(() => import('./ComponentName'));
+```
+
+### Мемоизация компонентов
+- Используйте `React.memo` для предотвращения ненужных ре-рендеров
+- Применяйте `useMemo` для дорогих вычислений
+- Используйте `useCallback` для стабилизации функций
+
+```typescript
+const ExpensiveComponent = memo(({ data, onUpdate }) => {
+  const processedData = useMemo(() => {
+    return data.map(item => expensiveTransform(item));
+  }, [data]);
+
+  const handleUpdate = useCallback((id: string) => {
+    onUpdate(id);
+  }, [onUpdate]);
+
+  return <div>{/* render */}</div>;
+});
+```
+
+## Bundle оптимизация
+
+### Правильные импорты
+- Используйте tree-shaking friendly импорты
+- Импортируйте только необходимые части библиотек
+
+```typescript
+// Правильно - tree-shaking работает
+import { Button } from 'antd';
+import { debounce } from 'lodash-es';
+
+// Неправильно - импортирует всю библиотеку
+import * as antd from 'antd';
+import _ from 'lodash';
+```
+
+### Динамические импорты
+- Используйте динамические импорты для больших библиотек
+- Загружайте тяжелые компоненты по требованию
+
+```typescript
+const loadHeavyLibrary = async () => {
+  const { HeavyComponent } = await import('./HeavyComponent');
+  return HeavyComponent;
+};
+```
+
+## Состояние и ре-рендеры
+
+### Оптимизация состояния
+- Разбивайте большие состояния на меньшие части
+- Используйте `useReducer` для сложной логики состояния
+- Избегайте создания новых объектов в render
+
+```typescript
+// Плохо - создает новый объект каждый раз
+const style = { color: isActive ? 'red' : 'blue' };
+
+// Хорошо - используйте useMemo или константы
+const style = useMemo(() => ({
+  color: isActive ? 'red' : 'blue'
+}), [isActive]);
+```
+
+### Виртуализация списков
+- Используйте `react-virtuoso` для больших списков
+- Реализуйте пагинацию для больших наборов данных
+
+```typescript
+import { Virtuoso } from 'react-virtuoso';
+
+const VirtualizedList = ({ items }) => (
+  <Virtuoso
+    data={items}
+    itemContent={(index, item) => (
+      <ListItem key={item.id} data={item} />
+    )}
+  />
+);
+```
+
+## Изображения и ресурсы
+
+### Оптимизация изображений
+- Используйте современные форматы (WebP, AVIF)
+- Реализуйте lazy loading для изображений
+- Оптимизируйте размеры изображений
+
+```typescript
+const OptimizedImage = ({ src, alt, ...props }) => (
+  <img
+    src={src}
+    alt={alt}
+    loading="lazy"
+    decoding="async"
+    {...props}
+  />
+);
+```
+
+
+## Мониторинг производительности
+
+### React DevTools Profiler
+- Используйте Profiler для выявления узких мест
+- Измеряйте время рендера компонентов
+- Отслеживайте причины ре-рендеров
+
+## ❌ Чего избегать
+
+### 🚫 Антипаттерны производительности:
+- Не создавайте функции и объекты в render без мемоизации
+- Не злоупотребляйте useEffect - многие случаи можно решить без него
+- Не мутируйте props или state
+- Не используйте индексы массива как ключи для динамических списков
+- Не игнорируйте предупреждения React о производительности
+- Не загружайте все данные сразу - используйте пагинацию или виртуализацию
+
+## 📊 Метрики производительности
+
+### 🎯 Целевые показатели:
+- **LCP (Largest Contentful Paint)**: < 2.5s
+- **FID (First Input Delay)**: < 100ms
+- **CLS (Cumulative Layout Shift)**: < 0.1
+- **Bundle Size**: < 250kb (gzipped)
+- **Time to Interactive**: < 3.8s
+
+### 📋 Чек-лист оптимизации:
+- ✅ Ленивая загрузка страниц
+- ✅ Code splitting по роутам
+- ✅ Мемоизация тяжелых компонентов
+- ✅ Оптимизация изображений (WebP, lazy loading)
+- ✅ Виртуализация длинных списков
+- ✅ Tree-shaking для библиотек
+- ✅ Кэширование API запросов
+- ✅ Минимизация ре-рендеров

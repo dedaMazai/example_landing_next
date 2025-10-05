@@ -1,0 +1,85 @@
+.ecosystem {
+  position: relative;
+  min-height: 870px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-12;
+  align-items: center;
+}
+
+.textContent {
+  width: 500px;
+}
+
+.title {
+  margin-bottom: $spacing-6;
+}
+
+.description {
+  opacity: 0.9;
+}
+
+.mockup {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.laptopImage {
+  width: 100%;
+  width: 1600px;
+  object-fit: contain;
+  z-index: 1;
+
+  @media (max-width: #{$breakpoint-2xl - 1}) {
+    width: 1400px;
+  }
+
+  @media (max-width: #{$breakpoint-xl - 1}) {
+    width: 1200px;
+  }
+
+  @media (max-width: #{$breakpoint-lg - 1}) {
+    width: 1000px;
+  }
+
+  @media (max-width: #{$breakpoint-md - 1}) {
+    width: 800px;
+  }
+
+  @media (max-width: #{$breakpoint-sm - 1}) {
+    width: 600px;
+  }
+}
+
+.backgroundImageContainer {
+  position: absolute;
+  top: 75%;
+  left: -20%;
+}
+
+@media (max-width: $breakpoint-lg) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: $spacing-10;
+  }
+
+  .textContent {
+    width: 330px;
+    text-align: center;
+  }
+
+  .mockup {
+    order: -1;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .title {
+    margin-bottom: $spacing-4;
+  }
+}

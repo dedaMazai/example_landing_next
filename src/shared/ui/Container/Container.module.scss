@@ -4,20 +4,26 @@
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
+  position: relative;
 }
 
 .padding {
-  padding-left: $spacing-4;
-  padding-right: $spacing-4;
+  padding-left: 90px;
+  padding-right: 90px;
 
-  @media (min-width: $breakpoint-md) {
+  @media (max-width: 1200px) {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+  @media (max-width: $breakpoint-md) {
     padding-left: $spacing-6;
     padding-right: $spacing-6;
   }
 
-  @media (min-width: $breakpoint-lg) {
-    padding-left: $spacing-8;
-    padding-right: $spacing-8;
+  @media (max-width: 480px) {
+    padding-left: $spacing-4;
+    padding-right: $spacing-4;
   }
 }
 
@@ -39,6 +45,10 @@
 
 .xxl {
   max-width: $container-max-2xl;
+}
+
+.xxxl {
+  max-width: $container-max-3xl;
 }
 
 .full {

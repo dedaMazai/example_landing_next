@@ -38,7 +38,40 @@ node scripts/download-figma-images.js
 
 См. подробные инструкции в `IMAGES_GUIDE.md`
 
-### 3. Запуск проекта
+### 3. Настройка переменных окружения
+
+Создайте файл `.env.local` в корне проекта:
+
+```bash
+# Site Configuration
+# Основной URL сайта (используется для метаданных и SEO)
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+
+# Опционально: коды верификации для поисковых систем
+GOOGLE_VERIFICATION_CODE=your-google-verification-code
+YANDEX_VERIFICATION_CODE=your-yandex-verification-code
+```
+
+**Примечание:** Если `NEXT_PUBLIC_SITE_URL` не указан, система автоматически определит URL:
+- На Vercel: использует `VERCEL_URL`
+- В production: fallback на `https://pioneer-work.com`
+- В development: `http://localhost:3000`
+
+### 4. Генерация PWA иконок (опционально)
+
+Для полной PWA функциональности сгенерируйте иконки:
+
+```bash
+# Установите sharp для обработки изображений
+npm install --save-dev sharp
+
+# Сгенерируйте PWA иконки из favicon.svg
+npm run generate-icons
+```
+
+После генерации иконок будут созданы PNG версии в папке `/public/icons/` для лучшей поддержки PWA.
+
+### 5. Запуск проекта
 
 ```bash
 npm run dev

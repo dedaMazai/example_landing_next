@@ -1,158 +1,483 @@
+# ⚡ Производительность лендингов
+
+## 🎯 Ключевые метрики для лендингов
+
+### 📊 Core Web Vitals (цели)
+- **LCP (Largest Contentful Paint)**: < 2.5s - Hero секция должна загружаться быстро
+- **FID (First Input Delay)**: < 100ms - кнопки/формы отвечают мгновенно
+- **CLS (Cumulative Layout Shift)**: < 0.1 - нет скачков при загрузке
+- **FCP (First Contentful Paint)**: < 1.8s - первый контент
+- **TTI (Time to Interactive)**: < 3.8s - страница полностью интерактивна
+
+### 🎯 Дополнительные метрики
+- **Bundle Size**: < 200kb (gzipped) для начальной загрузки
+- **Images**: WebP/AVIF, сжатые, lazy loaded
+- **Fonts**: Preloaded, с font-display: swap
+
 ---
-description: "Правила производительности с метриками и чек-листами"
-globs: ["src/**/*.tsx", "src/**/*.ts"]
-alwaysApply: true
-priority: "optional"
-context: "performance-optimization"
----
 
-# ⚡ Производительность и оптимизация
+## 🚀 Оптимизация Next.js
 
-## ⚙️ React оптимизации
+### 📦 Автоматические оптимизации Next.js 15
+Next.js автоматически оптимизирует:
+- ✅ Code splitting по страницам
+- ✅ Tree shaking неиспользуемого кода
+- ✅ Минификация JS/CSS
+- ✅ Image оптимизация (WebP, размеры)
+- ✅ Prefetching видимых ссылок
 
-### 🚀 Ленивая загрузка компонентов
-- Используйте `React.lazy` для code splitting на уровне страниц
-- Создавайте `.async.tsx` файлы для асинхронных компонентов
-
+### 🎨 Оптимизация изображений
 ```typescript
-// ComponentName.async.tsx
-import { lazy } from 'react';
+import Image from 'next/image';
 
-export const ComponentNameAsync = lazy(() => import('./ComponentName'));
+// Hero изображение - загружать первым
+<Image
+  src="/images/hero-laptop.png"
+  alt="Hero mockup"
+  width={1200}
+  height={800}
+  priority              // ✅ Приоритет загрузки
+  quality={85}          // ✅ Качество (по умолчанию 75)
+/>
+
+// Остальные изображения - ленивая загрузка
+<Image
+  src="/images/feature.png"
+  alt="Feature"
+  width={600}
+  height={400}
+  loading="lazy"        // ✅ Lazy loading (по умолчанию)
+  placeholder="blur"    // ✅ Blur placeholder
+  blurDataURL="..."
+/>
+
+// Фоновые изображения
+<div className={cls.bgContainer}>
+  <Image
+    src="/images/background.png"
+    alt=""
+    fill                // ✅ Заполнить контейнер
+    style={{ objectFit: 'cover' }}
+    quality={60}        // ✅ Ниже качество для фонов
+  />
+</div>
 ```
 
-### Мемоизация компонентов
-- Используйте `React.memo` для предотвращения ненужных ре-рендеров
-- Применяйте `useMemo` для дорогих вычислений
-- Используйте `useCallback` для стабилизации функций
+---
 
+## 🎬 Оптимизация анимаций
+
+### ✅ GPU-ускоренные анимации
 ```typescript
-const ExpensiveComponent = memo(({ data, onUpdate }) => {
-  const processedData = useMemo(() => {
-    return data.map(item => expensiveTransform(item));
-  }, [data]);
+// ✅ ХОРОШО - transform и opacity (GPU)
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}         // ✅ Анимация только один раз
+  transition={{ duration: 0.6 }}
+/>
 
-  const handleUpdate = useCallback((id: string) => {
-    onUpdate(id);
-  }, [onUpdate]);
+// ✅ ХОРОШО - scale (GPU)
+<motion.div
+  whileHover={{ scale: 1.05 }}
+  transition={{ type: "spring", stiffness: 300 }}
+/>
+```
 
-  return <div>{/* render */}</div>;
+### ❌ Избегайте CPU-тяжелых анимаций
+```typescript
+// ❌ ПЛОХО - анимация width/height (reflow)
+<motion.div
+  animate={{ width: isOpen ? 300 : 0 }}
+/>
+
+// ❌ ПЛОХО - анимация без viewport once
+<motion.div
+  whileInView={{ opacity: 1 }}  // Будет срабатывать каждый раз
+/>
+
+// ✅ ХОРОШО - используйте transform
+<motion.div
+  animate={{ scaleX: isOpen ? 1 : 0 }}
+/>
+```
+
+### 🎯 Framer Motion оптимизации
+```typescript
+// Отключить анимации на мобильных устройствах при необходимости
+const shouldReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+<motion.div
+  animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
+/>
+
+// Использовать layout анимации осторожно (могут быть тяжелыми)
+<motion.div layout="position">  // Вместо layout={true}
+```
+
+---
+
+## 🌐 Оптимизация i18n
+
+### 📝 Ленивая загрузка переводов
+```typescript
+// next-intl автоматически загружает только текущую локаль
+// Не нужно загружать все переводы сразу
+
+// i18n/request.ts
+import { getRequestConfig } from 'next-intl/server';
+
+export default getRequestConfig(async ({ locale }) => ({
+  messages: (await import(`./locales/${locale}.json`)).default
+}));
+```
+
+---
+
+## 📦 Code Splitting
+
+### 🔄 Динамические импорты для тяжелых компонентов
+```typescript
+import dynamic from 'next/dynamic';
+
+// Ленивая загрузка секции с видео/картами
+const VideoSection = dynamic(() => import('@/src/widgets/VideoSection'), {
+  loading: () => <div>Загрузка...</div>,
+  ssr: false  // Отключить SSR если не нужен
 });
+
+// Ленивая загрузка библиотек
+const Chart = dynamic(() => import('react-chartjs-2'), {
+  ssr: false
+});
+
+export function MainPage() {
+  return (
+    <>
+      <Hero />           {/* Загружается сразу */}
+      <Features />       {/* Загружается сразу */}
+      <VideoSection />   {/* Lazy loaded */}
+    </>
+  );
+}
 ```
 
-## Bundle оптимизация
+---
 
-### Правильные импорты
-- Используйте tree-shaking friendly импорты
-- Импортируйте только необходимые части библиотек
+## 🎨 CSS оптимизации
 
+### ✅ Производительные стили
+```scss
+// ✅ ХОРОШО - простые селекторы
+.Card {
+  padding: $spacing-6;
+}
+
+.cardTitle {
+  font-size: $font-size-2xl;
+}
+
+// ❌ ПЛОХО - глубокая вложенность
+.Section {
+  .container {
+    .content {
+      .card {
+        .title { }  // Медленно!
+      }
+    }
+  }
+}
+
+// ✅ ХОРОШО - GPU-ускоренные transitions
+.Button {
+  transition: transform 0.2s, opacity 0.2s;
+  
+  &:hover {
+    transform: translateY(-2px);  // GPU
+  }
+}
+
+// ❌ ПЛОХО - CPU-тяжелые transitions
+.Button {
+  transition: margin 0.2s, height 0.2s;  // Вызывает reflow!
+}
+```
+
+---
+
+## 📱 Responsive оптимизации
+
+### 🖼️ Адаптивные изображения
 ```typescript
-// Правильно - tree-shaking работает
-import { Button } from 'antd';
-import { debounce } from 'lodash-es';
+// Разные изображения для разных разрешений
+<picture>
+  <source 
+    media="(min-width: 1024px)" 
+    srcSet="/images/hero-desktop.webp" 
+  />
+  <source 
+    media="(min-width: 768px)" 
+    srcSet="/images/hero-tablet.webp" 
+  />
+  <Image 
+    src="/images/hero-mobile.webp" 
+    alt="Hero"
+    width={800}
+    height={600}
+  />
+</picture>
 
-// Неправильно - импортирует всю библиотеку
-import * as antd from 'antd';
+// Или используйте sizes prop
+<Image
+  src="/images/hero.png"
+  alt="Hero"
+  width={1200}
+  height={800}
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+/>
+```
+
+---
+
+## 🔤 Оптимизация шрифтов
+
+### 📝 Next.js Font Optimization
+```typescript
+// app/[locale]/layout.tsx
+import { Inter } from 'next/font/google';
+
+const inter = Inter({ 
+  subsets: ['latin', 'cyrillic'],
+  display: 'swap',           // ✅ Показывать fallback до загрузки
+  preload: true,             // ✅ Preload шрифтов
+  variable: '--font-inter',  // CSS переменная
+});
+
+export default function RootLayout({ children }) {
+  return (
+    <html className={inter.variable}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+### 🎨 CSS для шрифтов
+```css
+:root {
+  --font-inter: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-inter);
+  font-display: swap; /* Показывать fallback */
+}
+```
+
+---
+
+## 🔗 Prefetching и preloading
+
+### ⚡ Link prefetching (автоматически в Next.js)
+```typescript
+import Link from 'next/link';
+
+// Next.js автоматически prefetch видимые ссылки
+<Link href="#contact">Связаться</Link>
+
+// Отключить prefetch при необходимости
+<Link href="/heavy-page" prefetch={false}>
+  Heavy Page
+</Link>
+```
+
+### 📦 Preload критических ресурсов
+```typescript
+// app/[locale]/layout.tsx
+export default function RootLayout() {
+  return (
+    <html>
+      <head>
+        {/* Preload hero изображения */}
+        <link
+          rel="preload"
+          href="/images/hero-laptop.png"
+          as="image"
+        />
+        {/* Preload критических шрифтов */}
+        <link
+          rel="preload"
+          href="/fonts/inter-var.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+---
+
+## 📊 Мониторинг производительности
+
+### 🔍 Web Vitals отслеживание
+```typescript
+// app/[locale]/layout.tsx
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        {children}
+        <SpeedInsights />  {/* Vercel Speed Insights */}
+        <Analytics />      {/* Vercel Analytics */}
+      </body>
+    </html>
+  );
+}
+```
+
+### 📈 Lighthouse CI
+```json
+// .lighthouserc.json
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 3
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.9 }],
+        "categories:accessibility": ["error", { "minScore": 0.9 }],
+        "categories:seo": ["error", { "minScore": 0.9 }]
+      }
+    }
+  }
+}
+```
+
+---
+
+## 🗜️ Оптимизация бандла
+
+### 📦 Bundle анализатор
+```bash
+# Установка
+npm install @next/bundle-analyzer
+
+# next.config.js
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+module.exports = withBundleAnalyzer({
+  // config
+});
+
+# Запуск анализа
+ANALYZE=true npm run build
+```
+
+### 🎯 Tree-shaking friendly импорты
+```typescript
+// ✅ ХОРОШО - импортировать только нужное
+import { Button } from '@/src/shared/ui/Button';
+import { motion } from 'framer-motion';
+
+// ❌ ПЛОХО - импорт всей библиотеки
+import * as UI from '@/src/shared/ui';
+```
+
+---
+
+## ⚡ Чек-лист производительности
+
+### ✅ Перед запуском
+- [ ] Hero изображения с `priority`
+- [ ] Остальные изображения с `loading="lazy"`
+- [ ] WebP/AVIF формат для всех изображений
+- [ ] Анимации только с `transform` и `opacity`
+- [ ] `viewport={{ once: true }}` на всех анимациях
+- [ ] Шрифты с `display: swap`
+- [ ] Только необходимые шрифты загружены
+- [ ] Тяжелые секции с `dynamic` импортом
+- [ ] Lighthouse Score > 90 (Performance)
+- [ ] Нет layout shifts (CLS < 0.1)
+- [ ] Минимальная глубина CSS селекторов (max 3)
+
+---
+
+## 🎯 Приоритеты оптимизации для лендингов
+
+### 1️⃣ Критичные (Above the fold)
+- Hero секция загружается < 2.5s
+- Изображения Hero с `priority`
+- Шрифты preloaded
+- Inline critical CSS
+
+### 2️⃣ Важные (Below the fold)
+- Lazy loading изображений
+- Анимации с `viewport={{ once: true }}`
+- Оптимизация форм обратной связи
+
+### 3️⃣ Дополнительные
+- Prefetch следующих секций
+- Service Worker для кэширования
+- CDN для статических ресурсов
+
+---
+
+## ❌ Антипаттерны производительности
+
+### 🚫 Что НЕ делать
+```typescript
+// ❌ Тяжелая библиотека импортирована полностью
 import _ from 'lodash';
+
+// ❌ Анимация без viewport once (срабатывает каждый раз)
+<motion.div whileInView={{ opacity: 1 }} />
+
+// ❌ Все изображения с priority
+<Image src="/icon.png" priority />  // Только для Hero!
+
+// ❌ CPU-тяжелые анимации
+<motion.div animate={{ height: 300 }} />
+
+// ❌ Нет lazy loading
+<Image src="/big-image.jpg" loading="eager" />
 ```
 
-### Динамические импорты
-- Используйте динамические импорты для больших библиотек
-- Загружайте тяжелые компоненты по требованию
-
+### ✅ Правильные альтернативы
 ```typescript
-const loadHeavyLibrary = async () => {
-  const { HeavyComponent } = await import('./HeavyComponent');
-  return HeavyComponent;
-};
+// ✅ Импорт только нужной функции
+import debounce from 'lodash/debounce';
+
+// ✅ Анимация один раз
+<motion.div 
+  whileInView={{ opacity: 1 }} 
+  viewport={{ once: true }} 
+/>
+
+// ✅ Priority только для Hero
+<Image src="/hero.png" priority />  // Hero
+<Image src="/icon.png" loading="lazy" />  // Остальные
+
+// ✅ GPU-ускоренные анимации
+<motion.div animate={{ scaleY: 1.5 }} />
+
+// ✅ Lazy loading по умолчанию
+<Image src="/big-image.jpg" />  // loading="lazy" по умолчанию
 ```
 
-## Состояние и ре-рендеры
+---
 
-### Оптимизация состояния
-- Разбивайте большие состояния на меньшие части
-- Используйте `useReducer` для сложной логики состояния
-- Избегайте создания новых объектов в render
+## 📚 Дополнительные ресурсы
 
-```typescript
-// Плохо - создает новый объект каждый раз
-const style = { color: isActive ? 'red' : 'blue' };
-
-// Хорошо - используйте useMemo или константы
-const style = useMemo(() => ({
-  color: isActive ? 'red' : 'blue'
-}), [isActive]);
-```
-
-### Виртуализация списков
-- Используйте `react-virtuoso` для больших списков
-- Реализуйте пагинацию для больших наборов данных
-
-```typescript
-import { Virtuoso } from 'react-virtuoso';
-
-const VirtualizedList = ({ items }) => (
-  <Virtuoso
-    data={items}
-    itemContent={(index, item) => (
-      <ListItem key={item.id} data={item} />
-    )}
-  />
-);
-```
-
-## Изображения и ресурсы
-
-### Оптимизация изображений
-- Используйте современные форматы (WebP, AVIF)
-- Реализуйте lazy loading для изображений
-- Оптимизируйте размеры изображений
-
-```typescript
-const OptimizedImage = ({ src, alt, ...props }) => (
-  <img
-    src={src}
-    alt={alt}
-    loading="lazy"
-    decoding="async"
-    {...props}
-  />
-);
-```
-
-
-## Мониторинг производительности
-
-### React DevTools Profiler
-- Используйте Profiler для выявления узких мест
-- Измеряйте время рендера компонентов
-- Отслеживайте причины ре-рендеров
-
-## ❌ Чего избегать
-
-### 🚫 Антипаттерны производительности:
-- Не создавайте функции и объекты в render без мемоизации
-- Не злоупотребляйте useEffect - многие случаи можно решить без него
-- Не мутируйте props или state
-- Не используйте индексы массива как ключи для динамических списков
-- Не игнорируйте предупреждения React о производительности
-- Не загружайте все данные сразу - используйте пагинацию или виртуализацию
-
-## 📊 Метрики производительности
-
-### 🎯 Целевые показатели:
-- **LCP (Largest Contentful Paint)**: < 2.5s
-- **FID (First Input Delay)**: < 100ms
-- **CLS (Cumulative Layout Shift)**: < 0.1
-- **Bundle Size**: < 250kb (gzipped)
-- **Time to Interactive**: < 3.8s
-
-### 📋 Чек-лист оптимизации:
-- ✅ Ленивая загрузка страниц
-- ✅ Code splitting по роутам
-- ✅ Мемоизация тяжелых компонентов
-- ✅ Оптимизация изображений (WebP, lazy loading)
-- ✅ Виртуализация длинных списков
-- ✅ Tree-shaking для библиотек
-- ✅ Кэширование API запросов
-- ✅ Минимизация ре-рендеров
+- [Next.js Performance](https://nextjs.org/docs/app/building-your-application/optimizing)
+- [Web Vitals](https://web.dev/vitals/)
+- [Framer Motion Performance](https://www.framer.com/motion/guide-reduce-bundle-size/)

@@ -24,7 +24,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  
+
   let messages;
   try {
     messages = (await import(`../../i18n/locales/${locale}.json`)).default;
@@ -64,10 +64,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     icons: {
       icon: [
-        { url: '/favicon.svg', type: 'image/svg+xml' },
+        { url: '/favicon.ico', sizes: '142x32', type: 'image/x-icon' },
       ],
-      shortcut: '/favicon.svg',
-      apple: '/favicon.svg',
+      shortcut: '/favicon.ico',
+      apple: [
+        { url: '/favicon.png', sizes: '142x32', type: 'image/png' },
+      ],
     },
     manifest: '/manifest.json',
     openGraph: {
@@ -155,6 +157,8 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="142x32" href="/favicon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

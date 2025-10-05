@@ -31,7 +31,9 @@ export function Hero() {
           width={1200}
           height={800}
           className={cls.laptopImage}
-          priority
+          blurDataURL="/images/mockups/hero-laptop-low.png"
+          placeholder="blur"
+          // priority
         />
       </motion.div>
 

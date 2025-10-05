@@ -158,6 +158,17 @@ $error-color: #EF4444;
 
 ## 📚 Документация
 
+### 🎯 Правила разработки (Главное)
+| Файл | Описание |
+|------|----------|
+| [**📖 Project Rules**](./.cursor/rules/project_rules/README.md) | **Полная документация правил проекта** |
+| [⚡ Quick Start](./.cursor/rules/project_rules/QUICKSTART.md) | Создать секцию за 5 минут |
+| [📋 Components](./.cursor/rules/project_rules/components.mdc) | Паттерны React компонентов и UI |
+| [🎨 Styling](./.cursor/rules/project_rules/styling.mdc) | CSS Modules и дизайн-система |
+| [📝 TypeScript](./.cursor/rules/project_rules/typescript.mdc) | Типизация и интерфейсы |
+| [⚡ Performance](./.cursor/rules/project_rules/performance.mdc) | Оптимизация производительности |
+
+### 📖 Дополнительная документация
 | Файл | Описание |
 |------|----------|
 | [DESIGN_IMPLEMENTATION.md](./DESIGN_IMPLEMENTATION.md) | Главная инструкция по дизайну |

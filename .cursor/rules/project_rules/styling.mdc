@@ -1,72 +1,454 @@
----
-description: "Правила стилизации и CSS модули с практическими примерами"
-globs: ["src/**/*.scss", "src/**/*.tsx"]
-alwaysApply: true
-priority: "medium"
-context: "styling-system"
----
-
-# 🎨 Правила стилизации
+# 🎨 Правила стилизации лендингов
 
 ## 🎨 CSS Modules
 
 ### 🔧 Основные принципы
-- Используйте CSS Modules исключительно (`*.module.scss`)
-- Импортируйте стили как объект `cls`
-- Используйте утилиту `classNames` из `@/src/shared/lib/classNames/classNames` для условных классов
+- **Только CSS Modules** (`*.module.scss`) - никаких глобальных стилей
+- Импорт как объект `cls`
+- Утилита `classNames` для условной стилизации
+- Переменные из `src/app/styles/variables.scss`
 
+### 📋 Базовая структура SCSS модуля
+```scss
+@import '@/src/app/styles/variables';
 
-### 🔗 Использование в компонентах
-```typescript
-import cls from './ComponentName.module.scss';
-import { classNames } from '@/src/shared/lib/classNames/classNames';
+.SectionName {
+  position: relative;
+  padding: $spacing-20 0;
+  background-color: $background-color;
 
-const ComponentName = ({ className, variant }) => {
-  return (
-    <div className={classNames(cls.ComponentName)}>
-      <span className={cls.ComponentName__element}>
-        Содержимое
-      </span>
-    </div>
-  );
-};
+  @media (max-width: $breakpoint-md) {
+    padding: $spacing-12 0;
+  }
+}
+
+.title {
+  font-size: $font-size-5xl;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+  margin-bottom: $spacing-6;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.description {
+  font-size: $font-size-lg;
+  color: $text-secondary;
+  line-height: $line-height-normal;
+}
 ```
 
-## 🏷️ Соглашения по именованию
+---
 
-### 📄 Файлы стилей
-- **CSS Modules**: `ComponentName.module.scss`
-- Имена файлов должны соответствовать имени компонента
+## 🏷️ Именование классов
 
-### 🎯 Классы CSS
-- Используйте PascalCase для основных классов компонентов
-- Используйте camelCase для элементов и модификаторов
-- Избегайте глубокой вложенности (максимум 3 уровня)
+### 📝 Конвенции
+- **Основной класс компонента**: PascalCase (`Hero`, `ContactForm`)
+- **Вложенные элементы**: camelCase (`heroContent`, `cardTitle`)
+- **Модификаторы**: camelCase (`isActive`, `isDisabled`)
+- **Избегать**: kebab-case, snake_case
 
-## 🌈 Переменные и темы
-- Используйте CSS переменные для цветов и размеров
-- Размещайте глобальные переменные в `src/app/styles/variables.scss`
-- Поддерживайте темную и светлую темы
+### 🎯 Примеры
+```scss
+// ✅ ХОРОШО
+.Hero {
+  .heroContent { }
+  .heroTitle { }
+  .heroDescription { }
+  
+  &.scrolled {
+    background: rgba(0, 0, 0, 0.9);
+  }
+}
+
+// ❌ ПЛОХО
+.hero-section {
+  .hero_content { }
+  .hero-title { }
+}
+```
+
+---
+
+## 📐 Дизайн-система
+
+### 🎨 Цветовая палитра
+```scss
+// Основные цвета
+$background-color: #121314;      // Темный фон
+$primary-color: #FAFAFA;         // Основной текст
+$secondary-color: #0D0D0E;       // Вторичный фон
+$accent-color: #FBBF24;          // Акцент (золотой)
+
+// Текст
+$text-primary: #FAFAFA;          // 100% непрозрачность
+$text-secondary: rgba(250, 250, 250, 0.7);  // 70%
+$text-light: rgba(250, 250, 250, 0.5);      // 50%
+
+// Утилитарные
+$success-color: #10B981;
+$warning-color: #F59E0B;
+$error-color: #EF4444;
+```
+
+### 📏 Размеры и отступы (8px Grid)
+```scss
+// Spacing - все кратно 8px
+$spacing-1: 0.25rem;  // 4px
+$spacing-2: 0.5rem;   // 8px
+$spacing-3: 0.75rem;  // 12px
+$spacing-4: 1rem;     // 16px
+$spacing-6: 1.5rem;   // 24px
+$spacing-8: 2rem;     // 32px
+$spacing-12: 3rem;    // 48px
+$spacing-16: 4rem;    // 64px
+$spacing-20: 5rem;    // 80px
+$spacing-24: 6rem;    // 96px
+```
+
+### ✍️ Типографика
+```scss
+// Font sizes
+$font-size-xs: 0.75rem;   // 12px
+$font-size-sm: 0.875rem;  // 14px
+$font-size-base: 1rem;    // 16px
+$font-size-lg: 1.125rem;  // 18px
+$font-size-xl: 1.25rem;   // 20px
+$font-size-2xl: 1.5rem;   // 24px
+$font-size-3xl: 1.875rem; // 30px
+$font-size-4xl: 2.25rem;  // 36px
+$font-size-5xl: 3rem;     // 48px
+$font-size-6xl: 3.75rem;  // 60px
+
+// Font weights
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Line heights
+$line-height-tight: 1.2;   // Заголовки
+$line-height-normal: 1.5;  // Основной текст
+```
+
+---
 
 ## 📱 Responsive Design
-- Используйте mobile-first подход
-- Определяйте breakpoints в переменных
-- Тестируйте на различных разрешениях экрана
 
-## ⚡ Производительность стилей
-- Избегайте сложных селекторов
-- Минимизируйте использование `!important`
-- Используйте CSS Grid и Flexbox для лейаутов
-- Оптимизируйте изображения и иконки
+### 📐 Breakpoints
+```scss
+$breakpoint-sm: 540px;   // Мобильный (горизонтальный)
+$breakpoint-md: 768px;   // Планшет
+$breakpoint-lg: 1024px;  // Ноутбук
+$breakpoint-xl: 1280px;  // Десктоп
+$breakpoint-2xl: 1536px; // Широкий экран
+```
 
-## ✅ Качество CSS
-- Следуйте конфигурации Stylelint
-- Поддерживайте консистентное форматирование
-- Используйте логическое группирование свойств
-- Добавляйте комментарии для сложной логики
+### 🎯 Mobile-first подход
+```scss
+.Hero {
+  // Базовые стили для мобильных (320px+)
+  padding: $spacing-12 $spacing-4;
+  
+  .heroTitle {
+    font-size: $font-size-3xl;
+  }
 
-## ❌ Что НЕ делать
-- Не используйте inline стили
-- Не используйте глобальные CSS классы без модулей
-- Не дублируйте стили между компонентами
-- Не используйте магические числа без объяснения
+  // Планшет
+  @media (min-width: $breakpoint-md) {
+    padding: $spacing-16 $spacing-6;
+    
+    .heroTitle {
+      font-size: $font-size-4xl;
+    }
+  }
+
+  // Десктоп
+  @media (min-width: $breakpoint-lg) {
+    padding: $spacing-20 $spacing-8;
+    
+    .heroTitle {
+      font-size: $font-size-6xl;
+    }
+  }
+}
+```
+
+### 📱 Типичные адаптации
+```scss
+.Features {
+  display: grid;
+  gap: $spacing-6;
+  
+  // Мобильный: 1 колонка
+  grid-template-columns: 1fr;
+  
+  // Планшет: 2 колонки
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-8;
+  }
+  
+  // Десктоп: 3 колонки
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-12;
+  }
+}
+```
+
+---
+
+## 🎨 Использование classNames утилиты
+
+### 🔧 Синтаксис
+```typescript
+import { classNames } from '@/src/shared/lib/classNames/classNames';
+import cls from './Component.module.scss';
+
+// Базовое использование
+classNames(cls.Component)
+
+// С дополнительными классами
+classNames(cls.Component, [cls.variant, className])
+
+// С условными модификаторами
+classNames(cls.Component, [className], {
+  [cls.active]: isActive,
+  [cls.disabled]: disabled
+})
+```
+
+### 🎯 Примеры из проекта
+```typescript
+// Header с условным классом при скролле
+<header className={classNames(cls.header, { [cls.scrolled]: isScrolled })}>
+
+// Button с вариантами и модификаторами
+<button className={classNames(
+  cls.Button, 
+  [cls[variant], cls[size], cls[color], className],
+  {
+    [cls.disabled]: disabled,
+    [cls.fullWidth]: fullWidth,
+    [cls.strong]: strong
+  }
+)}>
+```
+
+---
+
+## 🌈 Темы и переменные
+
+### 🎨 CSS переменные для тем
+```scss
+// В компоненте можно использовать CSS переменные
+.Card {
+  background-color: var(--card-bg, $secondary-color);
+  color: var(--text-color, $text-primary);
+  
+  &:hover {
+    background-color: var(--card-bg-hover, lighten($secondary-color, 5%));
+  }
+}
+```
+
+---
+
+## 🎭 Визуальные эффекты
+
+### ✨ Тени (Shadows)
+```scss
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+// Использование
+.Card {
+  box-shadow: $shadow-md;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+  }
+}
+```
+
+### 🔄 Переходы (Transitions)
+```scss
+$transition-base: all 0.2s ease-in-out;
+$transition-slow: all 0.3s ease-in-out;
+$transition-fast: all 0.1s ease-in-out;
+
+// Использование
+.Button {
+  transition: $transition-base;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+```
+
+### ⭕ Скругления (Border Radius)
+```scss
+$border-radius-sm: 0.125rem;  // 2px
+$border-radius-base: 0.25rem; // 4px
+$border-radius-md: 0.375rem;  // 6px
+$border-radius-lg: 0.5rem;    // 8px
+$border-radius-xl: 0.75rem;   // 12px
+$border-radius-2xl: 1rem;     // 16px
+$border-radius-3xl: 1.5rem;   // 24px
+$border-radius-full: 9999px;  // Полное скругление
+
+// Использование
+.Card {
+  border-radius: $border-radius-xl;
+}
+```
+
+---
+
+## 📏 Layout паттерны
+
+### 📦 Container (ограничитель ширины)
+```scss
+.Container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $spacing-4;
+  padding-right: $spacing-4;
+
+  &.maxWidthXl {
+    max-width: $container-max-xl; // 1280px
+  }
+
+  @media (min-width: $breakpoint-md) {
+    padding-left: $spacing-6;
+    padding-right: $spacing-6;
+  }
+}
+```
+
+### 📐 Flexbox паттерны
+```scss
+// Центрирование
+.centerContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Распределение
+.spaceBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Вертикальный стек
+.vStack {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+```
+
+### 🎯 Grid паттерны
+```scss
+.gridFeatures {
+  display: grid;
+  gap: $spacing-8;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+```
+
+---
+
+## ⚡ Производительность CSS
+
+### ✅ Оптимизация
+- Избегайте сложных селекторов (max 3 уровня вложенности)
+- Используйте `transform` и `opacity` для анимаций (GPU acceleration)
+- Минимизируйте `!important`
+- Группируйте media queries
+
+### 🎯 Пример оптимизированных стилей
+```scss
+.Card {
+  // Хорошо: простой селектор
+  padding: $spacing-6;
+  
+  // Хорошо: GPU-ускоренная анимация
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px); // GPU
+  }
+  
+  // Избегайте: CPU-тяжелые анимации
+  // transition: height 0.3s ease, margin 0.3s ease; ❌
+}
+```
+
+---
+
+## ✅ Чек-лист стилизации
+
+- [ ] Используются только переменные из `variables.scss`
+- [ ] Все отступы кратны 8px (Grid System)
+- [ ] Mobile-first media queries
+- [ ] CSS Modules вместо глобальных стилей
+- [ ] `classNames` утилита для условных классов
+- [ ] Максимум 3 уровня вложенности селекторов
+- [ ] Transition только для `transform` и `opacity`
+- [ ] Нет `!important` без крайней необходимости
+
+---
+
+## ❌ Антипаттерны
+
+### 🚫 Что НЕ делать
+```scss
+// ❌ ПЛОХО - магические числа
+padding: 23px;
+
+// ❌ ПЛОХО - глобальные стили
+.button { }
+
+// ❌ ПЛОХО - глубокая вложенность
+.Section {
+  .container {
+    .content {
+      .title {
+        .text { }
+      }
+    }
+  }
+}
+
+// ❌ ПЛОХО - CPU-тяжелые анимации
+transition: margin 0.3s, padding 0.3s;
+```
+
+### ✅ Правильные альтернативы
+```scss
+// ✅ ХОРОШО - переменные spacing
+padding: $spacing-6; // 24px
+
+// ✅ ХОРОШО - CSS Modules
+.Button { }
+
+// ✅ ХОРОШО - плоская структура
+.Section { }
+.sectionContent { }
+.sectionTitle { }
+
+// ✅ ХОРОШО - GPU-ускоренные анимации
+transition: transform 0.3s, opacity 0.3s;
+transform: translateY(-4px);
+```

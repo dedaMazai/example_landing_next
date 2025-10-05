@@ -62,6 +62,22 @@ export const Management = ({ className }: ManagementProps) => {
       background="dark"
       padding="lg"
     >
+      {/* Скрытые изображения для предзагрузки и кеширования */}
+      <div style={{ display: 'none', position: 'absolute', width: 0, height: 0 }}>
+        {features.map((feature, index) => (
+          index !== activeIndex && (
+            <Image
+              key={feature.imageName}
+              src={`/images/interfaces/${feature.imageName}.png`}
+              alt=""
+              width={1}
+              height={1}
+              // priority={index < 4} // Приоритет для первых 4 изображений
+              unoptimized
+            />
+          )
+        ))}
+      </div>
       <Container maxWidth="xxxl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -119,30 +135,13 @@ export const Management = ({ className }: ManagementProps) => {
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className={cls.foregroundImageContent}
-                  priority
+                  // priority
                   unoptimized
                 />
                 <div className={cls.foregroundOverlay} />
               </motion.div>
             </motion.div>
           </AnimatePresence>
-        </div>
-
-        {/* Скрытые изображения для предзагрузки и кеширования */}
-        <div style={{ display: 'none', position: 'absolute', width: 0, height: 0 }}>
-          {features.map((feature, index) => (
-            index !== activeIndex && (
-              <Image
-                key={feature.imageName}
-                src={`/images/interfaces/${feature.imageName}.png`}
-                alt=""
-                width={1}
-                height={1}
-                priority={index < 4} // Приоритет для первых 4 изображений
-                unoptimized
-              />
-            )
-          ))}
         </div>
 
         <div className={cls.features}>
@@ -153,6 +152,7 @@ export const Management = ({ className }: ManagementProps) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
+              className={cls.featureButtonWrapper}
             >
               <Button
                 variant={index === activeIndex ? 'filled' : feature.variant}

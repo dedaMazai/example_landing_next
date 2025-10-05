@@ -1,120 +1,581 @@
----
-description: "TypeScript правила и типизация по сложности"
-globs: ["src/**/*.ts", "src/**/*.tsx"]
-alwaysApply: true
-priority: "medium"
-context: "typescript-typing"
----
-
-# 📝 TypeScript правила и типизация
+# 📝 TypeScript правила для лендингов
 
 ## 🔧 Общие принципы
 
 ### 🔒 Строгая типизация
 - Используйте строгую конфигурацию TypeScript
-- Определяйте интерфейсы для всех пропсов и структур данных
-- Используйте enums для констант (роли, статусы)
-- Используйте utility types (Partial, Pick, Omit)
+- Интерфейсы для всех пропсов компонентов
 - Избегайте `any` - используйте `unknown` или правильную типизацию
+- Используйте утилитарные типы (`Partial`, `Pick`, `Omit`)
+
+---
 
 ## ⚙️ Типизация компонентов
 
-### 📋 Интерфейсы пропсов
+### 📋 Интерфейсы пропсов для Widgets
 ```typescript
-interface ComponentNameProps {
+// Простой widget без пропсов
+export function Hero() {
+  const t = useTranslations('hero');
+  // ...
+}
+
+// Widget с пропсами
+interface FeaturesProps {
   className?: string;
-  title: string;
-  isActive?: boolean;
-  onClick?: (event: MouseEvent) => void;
+  variant?: 'default' | 'compact';
+}
+
+export function Features({ className, variant = 'default' }: FeaturesProps) {
+  // ...
+}
+```
+
+### 📦 Типизация UI компонентов
+```typescript
+// Button - полиморфный компонент (button или link)
+interface BaseButtonProps {
+  className?: string;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  disabled?: boolean;
   children?: ReactNode;
 }
 
-const ComponentName: FC<ComponentNameProps> = (props) => {
-  // реализация
+interface ButtonAsButtonProps extends BaseButtonProps {
+  as?: 'button';
+  href?: never;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+}
+
+interface ButtonAsLinkProps extends BaseButtonProps {
+  as: 'link';
+  href: string;
+  target?: string;
+  onClick?: never;
+}
+
+export type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps;
+```
+
+### 📐 Section/Container типизация
+```typescript
+interface SectionProps {
+  className?: string;
+  children: ReactNode;
+  background?: 'dark' | 'darker' | 'gradient' | 'transparent' | 'white';
+  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  id?: string;
+}
+
+export const Section: FC<SectionProps> = (props) => {
+  const { className, children, background = 'dark', padding = 'lg', id } = props;
+  // ...
 };
 ```
 
-### 🪝 Типизация хуков
-```typescript
-interface UseCustomHookReturn {
-  data: SomeData | null;
-  loading: boolean;
-  error: string | null;
-}
+---
 
-const useCustomHook = (): UseCustomHookReturn => {
-  // реализация
-};
+## 🎨 Type aliases для вариантов
+
+### 🔘 Варианты компонентов
+```typescript
+// Button
+export type ButtonVariant = 'clear' | 'outline' | 'filled';
+export type ButtonColor = 'normal' | 'success' | 'error' | 'secondary';
+export type ButtonSize = 's' | 'm' | 'l' | 'xl';
+
+// Typography
+export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+export type TextSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type TextAlign = 'left' | 'center' | 'right';
+export type TextColor = 'primary' | 'secondary' | 'accent' | 'error';
+
+// Container
+export type ContainerSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full';
 ```
 
-## Enums и константы
+---
 
-### Использование enums
+## 🌐 Типизация i18n
+
+### 📝 Типы переводов
 ```typescript
-enum UserRole {
-  ADMIN = 'admin',
-  USER = 'user',
-  MODERATOR = 'moderator'
-}
+// Автоматическая типизация из next-intl
+import { useTranslations } from 'next-intl';
 
-enum LoadingStatus {
-  IDLE = 'idle',
-  PENDING = 'pending',
-  FULFILLED = 'fulfilled',
-  REJECTED = 'rejected'
+export function Hero() {
+  // t будет типизирован на основе локали
+  const t = useTranslations('hero');
+  
+  // TypeScript знает доступные ключи
+  t('title');        // ✅
+  t('description');  // ✅
+  t('unknown');      // ❌ TypeScript ошибка
 }
 ```
 
-## Utility Types
-
-### Часто используемые utility types
+### 🔧 Типизация параметров переводов
 ```typescript
-// Partial - делает все поля опциональными
-type PartialUser = Partial<UserInfo>;
+// В JSON файле: "welcome": "Привет, {name}!"
+const t = useTranslations('messages');
 
-// Pick - выбирает определенные поля
-type UserPreview = Pick<UserInfo, 'id' | 'name'>;
-
-// Omit - исключает определенные поля
-type CreateUserData = Omit<UserInfo, 'id'>;
-
-// Record - создает объект с определенными ключами и типом значений
-type UserRolePermissions = Record<UserRole, string[]>;
+t('welcome', { name: 'Иван' }); // ✅ Правильно
+t('welcome', { age: 25 });      // ❌ TypeScript ошибка
 ```
 
-## Дженерики
+---
 
-### Создание переиспользуемых типов
+## 📋 Типизация форм
+
+### 📝 FormData интерфейсы
 ```typescript
-interface ApiResponse<T> {
-  data: T;
-  success: boolean;
+interface ContactFormData {
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+  consent: boolean;
+}
+
+// Validation errors
+interface FormErrors {
+  name?: string;
+  email?: string;
   message?: string;
 }
 
-interface PaginatedResponse<T> extends ApiResponse<T[]> {
-  total: number;
-  page: number;
-  pageSize: number;
+export function ContactForm() {
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: '',
+    email: '',
+    message: '',
+    consent: false
+  });
+  
+  const [errors, setErrors] = useState<FormErrors>({});
+  
+  // ...
+}
+```
+
+### 🔄 Типизация обработчиков форм
+```typescript
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value, type, checked } = e.target;
+  
+  setFormData(prev => ({
+    ...prev,
+    [name]: type === 'checkbox' ? checked : value
+  }));
+};
+
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  // ...
+};
+```
+
+---
+
+## 🎬 Типизация Framer Motion
+
+### 📐 Variants
+```typescript
+import { Variants } from 'framer-motion';
+
+const containerVariants: Variants = {
+  hidden: {
+    opacity: 0
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
+
+const itemVariants: Variants = {
+  hidden: { 
+    opacity: 0, 
+    y: 20 
+  },
+  visible: { 
+    opacity: 1, 
+    y: 0 
+  }
+};
+
+<motion.div
+  variants={containerVariants}
+  initial="hidden"
+  animate="visible"
+>
+  {items.map(item => (
+    <motion.div key={item.id} variants={itemVariants}>
+      {item.content}
+    </motion.div>
+  ))}
+</motion.div>
+```
+
+---
+
+## 🖼️ Типизация изображений
+
+### 📸 Image Props
+```typescript
+import Image from 'next/image';
+import { StaticImageData } from 'next/image';
+
+interface FeatureCardProps {
+  title: string;
+  description: string;
+  image: string | StaticImageData;
+  imageAlt: string;
+}
+
+export const FeatureCard: FC<FeatureCardProps> = (props) => {
+  const { title, description, image, imageAlt } = props;
+  
+  return (
+    <div>
+      <Image
+        src={image}
+        alt={imageAlt}
+        width={400}
+        height={300}
+        loading="lazy"
+      />
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </div>
+  );
+};
+```
+
+---
+
+## 🎯 Utility Types
+
+### 📦 Часто используемые утилитарные типы
+```typescript
+// Partial - все поля опциональные
+interface FeatureData {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+type PartialFeature = Partial<FeatureData>;
+// { id?: string; title?: string; description?: string; icon?: string; }
+
+// Pick - выбрать определенные поля
+type FeaturePreview = Pick<FeatureData, 'id' | 'title'>;
+// { id: string; title: string; }
+
+// Omit - исключить определенные поля
+type FeatureInput = Omit<FeatureData, 'id'>;
+// { title: string; description: string; icon: string; }
+
+// Record - объект с типизированными ключами и значениями
+type FeatureCategories = Record<string, FeatureData[]>;
+// { [key: string]: FeatureData[] }
+```
+
+---
+
+## 🔄 Типизация хуков
+
+### 🪝 Кастомные хуки
+```typescript
+import { useState, useEffect } from 'react';
+
+// Хук с возвращаемым типом
+interface UseScrollReturn {
+  scrollY: number;
+  isScrolled: boolean;
+}
+
+function useScroll(threshold: number = 50): UseScrollReturn {
+  const [scrollY, setScrollY] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrollY(currentScrollY);
+      setIsScrolled(currentScrollY > threshold);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [threshold]);
+
+  return { scrollY, isScrolled };
 }
 
 // Использование
-type UsersResponse = PaginatedResponse<UserInfo>;
-type UserResponse = ApiResponse<UserInfo>;
+const { scrollY, isScrolled } = useScroll(100);
 ```
+
+---
+
+## 📊 Типизация данных
+
+### 🗂️ Интерфейсы для контента
+```typescript
+// Данные фичи/преимущества
+interface Feature {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  color?: string;
+}
+
+// Данные партнера
+interface Partner {
+  id: string;
+  name: string;
+  logo: string;
+  url: string;
+}
+
+// Данные этапа жизненного цикла
+interface LifecycleStep {
+  id: string;
+  phase: string;
+  title: string;
+  description: string;
+  backgroundImage: string;
+}
+
+// Использование
+const features: Feature[] = [
+  {
+    id: '1',
+    title: t('features.feature1.title'),
+    description: t('features.feature1.description'),
+    icon: '/icons/feature-1.svg'
+  }
+];
+```
+
+---
+
+## 🎨 Типизация стилей
+
+### 🖌️ CSSProperties
+```typescript
+import { CSSProperties } from 'react';
+
+interface StyledComponentProps {
+  style?: CSSProperties;
+  width?: string | number;
+  height?: string | number;
+}
+
+export const StyledComponent: FC<StyledComponentProps> = (props) => {
+  const { style, width, height } = props;
+  
+  const inlineStyles: CSSProperties = {
+    ...style,
+    width: typeof width === 'number' ? `${width}px` : width,
+    height: typeof height === 'number' ? `${height}px` : height,
+  };
+  
+  return <div style={inlineStyles}>Content</div>;
+};
+```
+
+---
+
+## 🔗 Типизация ссылок
+
+### 🌐 Link компоненты
+```typescript
+interface LinkProps {
+  href: string;
+  children: ReactNode;
+  external?: boolean;
+  className?: string;
+}
+
+export const Link: FC<LinkProps> = (props) => {
+  const { href, children, external, className } = props;
+  
+  if (external) {
+    return (
+      <a 
+        href={href} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {children}
+      </a>
+    );
+  }
+  
+  return (
+    <NextLink href={href} className={className}>
+      {children}
+    </NextLink>
+  );
+};
+```
+
+---
 
 ## ✅ Лучшие практики
 
-### 💯 Что делать:
-- Используйте строгие типы везде, где возможно
-- Создавайте переиспользуемые интерфейсы
-- Используйте union types для ограниченных значений
-- Документируйте сложные типы комментариями
-- Используйте const assertions для неизменяемых данных
+### 💯 Что делать
+- ✅ Используйте `interface` для объектов с пропсами
+- ✅ Используйте `type` для union types и примитивов
+- ✅ Деструктурируйте пропсы с типами
+- ✅ Используйте `FC<Props>` для функциональных компонентов
+- ✅ Типизируйте все обработчики событий
+- ✅ Используйте `ReactNode` для children
+- ✅ Создавайте переиспользуемые типы в отдельных файлах
 
-### ❌ Чего избегать:
-- Не используйте `any` без крайней необходимости
-- Не игнорируйте ошибки TypeScript
-- Не создавайте слишком сложные типы без необходимости
-- Не дублируйте типы - выносите в shared
-- Не используйте `@ts-ignore` без комментария с объяснением
+### 📝 Примеры
+```typescript
+// ✅ Interface для объектов
+interface ButtonProps {
+  onClick: () => void;
+}
+
+// ✅ Type для union
+type ButtonVariant = 'primary' | 'secondary';
+
+// ✅ FC с типизацией
+export const Button: FC<ButtonProps> = ({ onClick }) => {
+  // ...
+};
+
+// ✅ Типизация обработчиков
+const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();
+};
+
+// ✅ ReactNode для children
+interface CardProps {
+  children: ReactNode;
+}
+```
+
+---
+
+## ❌ Антипаттерны
+
+### 🚫 Что НЕ делать
+```typescript
+// ❌ ПЛОХО - any типы
+const data: any = response;
+const handleClick = (e: any) => {};
+
+// ❌ ПЛОХО - неявная типизация
+const features = [
+  { title: 'Feature 1' },
+  { title: 'Feature 2' }
+];
+
+// ❌ ПЛОХО - игнорирование ошибок
+// @ts-ignore
+const value = unknownObject.property;
+```
+
+### ✅ Правильные альтернативы
+```typescript
+// ✅ ХОРОШО - строгие типы
+const data: ApiResponse = response;
+const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {};
+
+// ✅ ХОРОШО - явная типизация
+interface Feature {
+  title: string;
+}
+
+const features: Feature[] = [
+  { title: 'Feature 1' },
+  { title: 'Feature 2' }
+];
+
+// ✅ ХОРОШО - type guard или optional chaining
+const value = unknownObject?.property;
+if ('property' in unknownObject) {
+  const value = unknownObject.property;
+}
+```
+
+---
+
+## 🎯 TSConfig для лендингов
+
+### ⚙️ Рекомендуемая конфигурация
+```json
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,          // ✅ Строгая типизация
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "paths": {
+      "@/*": ["./*"]         // ✅ Абсолютные импорты
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts"],
+  "exclude": ["node_modules", ".next"]
+}
+```
+
+---
+
+## 📋 Чек-лист типизации
+
+- [ ] Все компоненты имеют типизированные пропсы
+- [ ] Нет `any` типов (или есть комментарий почему)
+- [ ] Обработчики событий типизированы
+- [ ] FormData и errors типизированы
+- [ ] Variants для Framer Motion типизированы
+- [ ] Кастомные хуки возвращают типизированные объекты
+- [ ] Используются utility types где уместно
+- [ ] `@ts-ignore` используется только с комментарием
+
+---
+
+## 🔍 Дополнительные типы
+
+### 📦 Глобальные типы (если нужны)
+```typescript
+// src/app/types/global.d.ts
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
+export {};
+```
+
+### 🖼️ SVG типы
+```typescript
+// src/app/types/svg.d.ts
+declare module '*.svg' {
+  import { FC, SVGProps } from 'react';
+  const content: FC<SVGProps<SVGSVGElement>>;
+  export default content;
+}
+```

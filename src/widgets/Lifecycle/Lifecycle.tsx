@@ -8,11 +8,30 @@ import { Heading, Text } from '@/src/shared/ui/Typography';
 import { Section } from '@/src/shared/ui/Section';
 import { Container } from '@/src/shared/ui/Container';
 import { Button } from '@/src/shared/ui/Button';
+import Image from 'next/image';
 import cls from './Lifecycle.module.scss';
 
 interface LifecycleProps {
   className?: string;
 }
+
+const features = [
+  {
+    key: 'comparison',
+    label: 'features.comparison',
+    image: 'lifecycle-bg-1'
+  },
+  {
+    key: 'deals',
+    label: 'features.deals',
+    image: 'lifecycle-bg-2'
+  },
+  {
+    key: 'management',
+    label: 'features.management',
+    image: 'lifecycle-bg-3'
+  },
+] as const;
 
 /**
  * Lifecycle - секция показывающая жизненный цикл объектов недвижимости
@@ -21,24 +40,6 @@ interface LifecycleProps {
 export const Lifecycle = ({ className }: LifecycleProps) => {
   const t = useTranslations('lifecycle');
   const [activeFeature, setActiveFeature] = useState(0);
-
-  const features = [
-    { 
-      key: 'comparison', 
-      label: t('features.comparison'),
-      image: '/images/backgrounds/lifecycle-bg-1.png'
-    },
-    { 
-      key: 'deals', 
-      label: t('features.deals'),
-      image: '/images/backgrounds/lifecycle-bg-2.png'
-    },
-    { 
-      key: 'management', 
-      label: t('features.management'),
-      image: '/images/backgrounds/lifecycle-bg-3.png'
-    },
-  ];
 
   const handleFeatureClick = (index: number) => {
     setActiveFeature(index);
@@ -51,6 +52,22 @@ export const Lifecycle = ({ className }: LifecycleProps) => {
       background="dark"
       padding="none"
     >
+      {/* Скрытые изображения для предзагрузки и кеширования */}
+      <div style={{ display: 'none', position: 'absolute', width: 0, height: 0 }}>
+        {features.map((feature, index) => (
+          index !== activeFeature && (
+            <Image
+              key={feature.image}
+              src={`/images/backgrounds/${feature.image}.png`}
+              alt=""
+              width={1}
+              height={1}
+              priority={index < 1} // Приоритет для первых 4 изображений
+              unoptimized
+            />
+          )
+        ))}
+      </div>
       {/* Анимированный фоновый слой с изображениями */}
       <div className={cls.imageContainer}>
         <AnimatePresence mode="wait">
@@ -58,7 +75,7 @@ export const Lifecycle = ({ className }: LifecycleProps) => {
             key={activeFeature}
             className={cls.backgroundImage}
             style={{ 
-              backgroundImage: `url(${features[activeFeature].image})` 
+              backgroundImage: `url(/images/backgrounds/${features[activeFeature].image}.png)`
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -114,7 +131,7 @@ export const Lifecycle = ({ className }: LifecycleProps) => {
                 size="l"
                 onClick={() => handleFeatureClick(index)}
               >
-                {feature.label}
+                {t(feature.label)}
               </Button>
             ))}
           </div>

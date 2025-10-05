@@ -41,7 +41,7 @@ export const MobileApp = ({ className }: MobileAppProps) => {
               width={2820}
               height={870}
               className={cls.backgroundImage}
-              priority
+              // priority
             />
           </motion.div>
 

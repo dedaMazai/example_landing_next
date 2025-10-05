@@ -111,6 +111,10 @@
     width: 660px;
     height: 374px;
   }
+
+  .featureButton {
+    width: 340px;
+  }
 }
 
 @media (max-width: $breakpoint-md) {
@@ -141,6 +145,10 @@
   .imageWrapper {
     width: 350px;
     height: 198px;
+  }
+
+  .featureButtonWrapper {
+    width: 100%;
   }
 
   .features {

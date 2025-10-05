@@ -72,7 +72,7 @@ export const Ecosystem = ({ className }: EcosystemProps) => {
               width={2800}
               height={230}
               className={cls.backgroundImage}
-              priority
+              // priority
             />
           </motion.div>
         </div>

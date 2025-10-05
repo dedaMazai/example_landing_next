@@ -10,8 +10,10 @@ const fs = require('fs');
 const path = require('path');
 
 const sizes = [192, 512];
+const additionalSizes = [32, 180]; // 32 для favicon.ico, 180 для apple-touch-icon
 const inputSvg = path.join(__dirname, '../public/favicon.svg');
 const outputDir = path.join(__dirname, '../public/icons');
+const publicDir = path.join(__dirname, '../public');
 
 async function generateIcons() {
   try {
@@ -59,6 +61,22 @@ async function generateIcons() {
       
       console.log(`✅ Создана maskable иконка: icon-maskable-${size}x${size}.png`);
     }
+
+    // Генерируем favicon.ico (32x32)
+    const faviconPath = path.join(publicDir, 'favicon.ico');
+    await sharp(inputSvg)
+      .resize(32, 32)
+      .png()
+      .toFile(faviconPath);
+    console.log(`✅ Создан favicon.ico`);
+
+    // Генерируем apple-touch-icon.png (180x180)
+    const appleTouchIconPath = path.join(outputDir, 'apple-touch-icon.png');
+    await sharp(inputSvg)
+      .resize(180, 180)
+      .png({ quality: 100 })
+      .toFile(appleTouchIconPath);
+    console.log(`✅ Создан apple-touch-icon.png`);
 
     console.log('🎉 Все PWA иконки успешно созданы!');
     console.log('📝 Не забудьте обновить manifest.json если нужно');

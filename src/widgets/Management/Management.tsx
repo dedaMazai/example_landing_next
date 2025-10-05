@@ -24,6 +24,22 @@ interface FeatureButton {
   imageName: string;
 }
 
+// Массив функций вынесен за пределы компонента для избежания пересоздания
+const features: FeatureButton[] = [
+  { key: 'documents', variant: 'clear', color: 'normal', icon: <FeatureIcon type="documents" />, imageName: 'documents' },
+  { key: 'analytics', variant: 'clear', color: 'secondary', icon: <FeatureIcon type="analytics" />, imageName: 'dashboard' },
+  { key: 'monitoring', variant: 'clear', color: 'normal', icon: <FeatureIcon type="monitoring" />, imageName: 'list-object' },
+  { key: 'incidents', variant: 'clear', color: 'secondary', icon: <FeatureIcon type="incidents" />, imageName: 'remark' },
+  { key: 'cheaklist', variant: 'clear', color: 'normal', icon: <FeatureIcon type="reports" />, imageName: 'cheaklist' },
+  { key: 'tasks', variant: 'clear', color: 'secondary', icon: <FeatureIcon type="tasks" />, imageName: 'internal-acceptance' },
+  { key: 'residents', variant: 'clear', color: 'normal', icon: <FeatureIcon type="residents" />, imageName: 'profile' },
+  { key: 'budget', variant: 'clear', color: 'secondary', icon: <FeatureIcon type="budget" />, imageName: 'client-acceptance' },
+  { key: 'storage', variant: 'clear', color: 'normal', icon: <FeatureIcon type="storage" />, imageName: 'object-info' },
+  { key: 'calendar', variant: 'clear', color: 'secondary', icon: <FeatureIcon type="calendar" />, imageName: 'chess-layout' },
+  { key: 'alerts', variant: 'clear', color: 'normal', icon: <FeatureIcon type="alerts" />, imageName: 'internal-acceptance' },
+  { key: 'integration', variant: 'clear', color: 'secondary', icon: <FeatureIcon type="integration" />, imageName: 'client-profile' },
+];
+
 /**
  * Management - секция управления через единую платформу
  * @param className - дополнительные CSS классы
@@ -31,21 +47,6 @@ interface FeatureButton {
 export const Management = ({ className }: ManagementProps) => {
   const t = useTranslations('management');
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const features: FeatureButton[] = [
-    { key: 'documents', variant: 'clear', color: 'normal', icon: <FeatureIcon type="documents" />, imageName: 'documents' },
-    { key: 'analytics', variant: 'clear', color: 'secondary', icon: <FeatureIcon type="analytics" />, imageName: 'dashboard' },
-    { key: 'monitoring', variant: 'clear', color: 'normal', icon: <FeatureIcon type="monitoring" />, imageName: 'list-object' },
-    { key: 'incidents', variant: 'clear', color: 'secondary', icon: <FeatureIcon type="incidents" />, imageName: 'remark' },
-    { key: 'cheaklist', variant: 'clear', color: 'normal', icon: <FeatureIcon type="reports" />, imageName: 'cheaklist' },
-    { key: 'tasks', variant: 'clear', color: 'secondary', icon: <FeatureIcon type="tasks" />, imageName: 'internal-acceptance' },
-    { key: 'residents', variant: 'clear', color: 'normal', icon: <FeatureIcon type="residents" />, imageName: 'profile' },
-    { key: 'budget', variant: 'clear', color: 'secondary', icon: <FeatureIcon type="budget" />, imageName: 'client-acceptance' },
-    { key: 'storage', variant: 'clear', color: 'normal', icon: <FeatureIcon type="storage" />, imageName: 'object-info' },
-    { key: 'calendar', variant: 'clear', color: 'secondary', icon: <FeatureIcon type="calendar" />, imageName: 'chess-layout' },
-    { key: 'alerts', variant: 'clear', color: 'normal', icon: <FeatureIcon type="alerts" />, imageName: 'internal-acceptance' },
-    { key: 'integration', variant: 'clear', color: 'secondary', icon: <FeatureIcon type="integration" />, imageName: 'client-profile' },
-  ];
 
   const handleFeatureClick = (index: number) => {
     if (index === activeIndex) {
@@ -125,6 +126,23 @@ export const Management = ({ className }: ManagementProps) => {
               </motion.div>
             </motion.div>
           </AnimatePresence>
+        </div>
+
+        {/* Скрытые изображения для предзагрузки и кеширования */}
+        <div style={{ display: 'none', position: 'absolute', width: 0, height: 0 }}>
+          {features.map((feature, index) => (
+            index !== activeIndex && (
+              <Image
+                key={feature.imageName}
+                src={`/images/interfaces/${feature.imageName}.png`}
+                alt=""
+                width={1}
+                height={1}
+                priority={index < 4} // Приоритет для первых 4 изображений
+                unoptimized
+              />
+            )
+          ))}
         </div>
 
         <div className={cls.features}>

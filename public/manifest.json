@@ -12,9 +12,9 @@
   "dir": "ltr",
   "icons": [
     {
-      "src": "/favicon.png",
+      "src": "/favicon.svg",
       "sizes": "any",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ],
@@ -42,7 +42,7 @@
       "url": "/#contact",
       "icons": [
         {
-          "src": "/favicon.png",
+          "src": "/favicon.svg",
           "sizes": "96x96"
         }
       ]
@@ -54,7 +54,7 @@
       "url": "https://pdp.pioneer.ru",
       "icons": [
         {
-          "src": "/favicon.png",
+          "src": "/favicon.svg",
           "sizes": "96x96"
         }
       ]

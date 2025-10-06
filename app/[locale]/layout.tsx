@@ -64,6 +64,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     icons: {
       icon: [
+        { url: '/favicon.svg', type: 'image/svg+xml' },
         { url: '/favicon.png', sizes: '142x32', type: 'image/png' },
         { url: '/favicon.ico', sizes: '142x32', type: 'image/x-icon' },
       ],
@@ -158,6 +159,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/png" sizes="142x32" href="/favicon.png" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <script

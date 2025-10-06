@@ -62,20 +62,17 @@ export const Management = ({ className }: ManagementProps) => {
       background="dark"
       padding="lg"
     >
-      {/* Скрытые изображения для предзагрузки и кеширования */}
-      <div style={{ display: 'none', position: 'absolute', width: 0, height: 0 }}>
+      {/* Предзагрузка всех изображений */}
+      <div style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', pointerEvents: 'none' }}>
         {features.map((feature, index) => (
-          index !== activeIndex && (
-            <Image
-              key={feature.imageName}
-              src={`/images/interfaces/${feature.imageName}.png`}
-              alt=""
-              width={1}
-              height={1}
-              // priority={index < 4} // Приоритет для первых 4 изображений
-              unoptimized
-            />
-          )
+          <Image
+            key={feature.imageName}
+            src={`/images/interfaces/${feature.imageName}.png`}
+            alt=""
+            width={800}
+            height={600}
+            priority={index === 0}
+          />
         ))}
       </div>
       <Container maxWidth="xxxl">
@@ -114,7 +111,6 @@ export const Management = ({ className }: ManagementProps) => {
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className={cls.backgroundImageContent}
-                  unoptimized
                 />
               </motion.div>
 
@@ -136,7 +132,6 @@ export const Management = ({ className }: ManagementProps) => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className={cls.foregroundImageContent}
                   // priority
-                  unoptimized
                 />
                 <div className={cls.foregroundOverlay} />
               </motion.div>

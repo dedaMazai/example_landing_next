@@ -52,20 +52,18 @@ export const Lifecycle = ({ className }: LifecycleProps) => {
       background="dark"
       padding="none"
     >
-      {/* Скрытые изображения для предзагрузки и кеширования */}
-      <div style={{ display: 'none', position: 'absolute', width: 0, height: 0 }}>
+
+      {/* Предзагрузка всех изображений */}
+      <div style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', pointerEvents: 'none' }}>
         {features.map((feature, index) => (
-          index !== activeFeature && (
-            <Image
-              key={feature.image}
-              src={`/images/backgrounds/${feature.image}.png`}
-              alt=""
-              width={1}
-              height={1}
-              priority={index < 1} // Приоритет для первых 4 изображений
-              unoptimized
-            />
-          )
+          <Image
+            key={feature.image}
+            src={`/images/backgrounds/${feature.image}.png`}
+            alt=""
+            width={800}
+            height={600}
+            priority={index === 0}
+          />
         ))}
       </div>
       {/* Анимированный фоновый слой с изображениями */}

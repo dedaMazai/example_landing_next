@@ -66,7 +66,6 @@ export const Partners = ({ className }: PartnersProps) => {
                   fill
                   className={cls.partnerLogo}
                   style={{ objectFit: 'contain' }}
-                  unoptimized
                 />
               </div>
             </motion.div>
